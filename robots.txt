@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://regionpage.stuxedo.net/sitemap.xml

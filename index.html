@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Stuxedo Region">
+    <title>A Stuxedo Region</title>
+    <link rel="icon" type="image/png" href="https://global.media.stuxedo.com/icon.png">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.3.2/css/flag-icons.min.css">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* ── CSS variables (dark first; light follows the OS, and the toggle's classes win over both) ── */
+        :root {
+            --bg: #051e03;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.07);
+            --accent: #00ac00;
+            --accent-gradient: linear-gradient(90deg, #006400, #00ac00);
+            --accent-dim: rgba(0, 172, 0, 0.13);
+            --accent-bg: rgba(0, 172, 0, 0.12);
+            --accent-bg-hover: rgba(0, 172, 0, 0.18);
+            --accent-border-strong: rgba(0, 172, 0, 0.35);
+            --accent-hover: rgba(0, 172, 0, 0.22);
+            --accent-border-hover: rgba(0, 172, 0, 0.55);
+            --text-1: #eef2ee;
+            --text-2: rgba(238, 242, 238, 0.6);
+            --text-3: rgba(238, 242, 238, 0.35);
+            --st-up: #2ecc71;
+            --st-degraded: #ffa64d;
+            --st-down: #ff4d4d;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root:not(.theme-dark) {
+                --bg: #e8ffe6;
+                --bg-card: rgba(0, 0, 0, 0.04);
+                --border: rgba(0, 100, 0, 0.15);
+                --accent: #006400;
+                --accent-dim: rgba(0, 100, 0, 0.08);
+                --accent-bg: rgba(0, 100, 0, 0.07);
+                --accent-bg-hover: rgba(0, 100, 0, 0.11);
+                --accent-border-strong: rgba(0, 100, 0, 0.28);
+                --accent-hover: rgba(0, 100, 0, 0.13);
+                --accent-border-hover: rgba(0, 100, 0, 0.45);
+                --text-1: #1a1a1a;
+                --text-2: rgba(0, 0, 0, 0.62);
+                --text-3: rgba(0, 0, 0, 0.35);
+                --st-up: #1e8449;
+                --st-degraded: #b8650f;
+                --st-down: #c62828;
+            }
+        }
+
+        :root.theme-dark {
+            --bg: #051e03;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.07);
+            --accent: #00ac00;
+            --accent-dim: rgba(0, 172, 0, 0.13);
+            --accent-bg: rgba(0, 172, 0, 0.12);
+            --accent-bg-hover: rgba(0, 172, 0, 0.18);
+            --accent-border-strong: rgba(0, 172, 0, 0.35);
+            --accent-hover: rgba(0, 172, 0, 0.22);
+            --accent-border-hover: rgba(0, 172, 0, 0.55);
+            --text-1: #eef2ee;
+            --text-2: rgba(238, 242, 238, 0.6);
+            --text-3: rgba(238, 242, 238, 0.35);
+            --st-up: #2ecc71;
+            --st-degraded: #ffa64d;
+            --st-down: #ff4d4d;
+        }
+
+        :root.theme-light {
+            --bg: #e8ffe6;
+            --bg-card: rgba(0, 0, 0, 0.04);
+            --border: rgba(0, 100, 0, 0.15);
+            --accent: #006400;
+            --accent-dim: rgba(0, 100, 0, 0.08);
+            --accent-bg: rgba(0, 100, 0, 0.07);
+            --accent-bg-hover: rgba(0, 100, 0, 0.11);
+            --accent-border-strong: rgba(0, 100, 0, 0.28);
+            --accent-hover: rgba(0, 100, 0, 0.13);
+            --accent-border-hover: rgba(0, 100, 0, 0.45);
+            --text-1: #1a1a1a;
+            --text-2: rgba(0, 0, 0, 0.62);
+            --text-3: rgba(0, 0, 0, 0.35);
+            --st-up: #1e8449;
+            --st-degraded: #b8650f;
+            --st-down: #c62828;
+        }
+
+        html {
+            background-color: var(--bg);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-1);
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        main {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Layout ── */
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3.25rem 1.5rem 2rem;
+            max-width: 680px;
+            width: 100%;
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+        }
+
+        .tagline {
+            font-family: 'StuxGroup Tale', 'Barlow', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 6px 0 0;
+        }
+
+        .accent-bar {
+            width: 44px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--accent-gradient);
+            margin: 0 auto 2rem;
+        }
+
+        h1 {
+            font-family: 'Stuxedo Tale', 'Exo 2', sans-serif;
+            font-size: clamp(2rem, 7vw, 3.1rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--text-1);
+            margin: 0 0 0.9rem;
+            overflow-wrap: anywhere;
+        }
+
+        .eyebrow {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            margin: 0 0 0.6rem;
+        }
+
+        .sub {
+            font-family: 'StuxGroup Tale', 'Barlow', sans-serif;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            font-weight: 300;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin: 0 0 2rem;
+        }
+
+        .page-flag {
+            display: block;
+            font-size: 2.6rem;
+            margin: 0 auto 1rem;
+            width: 1.333em;
+        }
+
+        /* ── Flags (flag-icons) and the Eco leaf, which has no flag ── */
+        .fi {
+            border-radius: 3px;
+            box-shadow: 0 0 0 1px var(--border);
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+
+        .fi-leaf {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.333em;
+            height: 1em;
+            border-radius: 3px;
+            background: var(--accent-dim);
+            box-shadow: 0 0 0 1px var(--accent-border-strong);
+            color: var(--accent);
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+
+        .fi-leaf svg {
+            width: 0.78em;
+            height: 0.78em;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.9;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-bg-hover);
+            border-radius: 16px;
+            padding: 1.5rem 1.5rem 1.25rem;
+            max-width: 640px;
+            width: 100%;
+            margin: 0 0 1.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            text-align: left;
+        }
+
+        .card[hidden] {
+            display: none;
+        }
+
+        .card-label {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-2);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin: 0 0 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ── Servers ── */
+        .server-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .server-row:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .info-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .info-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.9;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .server-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1 1 200px;
+            min-width: 0;
+        }
+
+        .server-name {
+            color: var(--text-1);
+            font-weight: 600;
+        }
+
+        .server-host {
+            color: var(--text-2);
+            font-size: 0.82rem;
+            overflow-wrap: anywhere;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+            margin-left: auto;
+            color: var(--st);
+            background: color-mix(in srgb, var(--st) 14%, transparent);
+            border: 1px solid color-mix(in srgb, var(--st) 45%, transparent);
+        }
+
+        .badge[hidden] {
+            display: none;
+        }
+
+        .badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .badge-up { --st: var(--st-up); }
+        .badge-degraded { --st: var(--st-degraded); }
+        .badge-down { --st: var(--st-down); }
+
+        .badge-none {
+            color: var(--text-2);
+            background: transparent;
+            border: 1px dashed var(--border);
+            font-weight: 500;
+        }
+
+        .badge-none::before {
+            display: none;
+        }
+
+        .status-note {
+            margin: 1rem 0 0;
+            padding-top: 0.9rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-2);
+        }
+
+        .empty {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .empty p {
+            margin: 0;
+            color: var(--text-2);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .empty strong {
+            display: block;
+            color: var(--text-1);
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        /* ── Region switcher ── */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .region-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .region-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 100%;
+            padding: 10px 12px;
+            font-size: 1.15rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-card);
+            transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+
+        .region-link:hover {
+            border-color: var(--accent-border-hover);
+            background: var(--accent-bg);
+            transform: translateY(-1px);
+            opacity: 1 !important;
+        }
+
+        .region-link[aria-current="page"] {
+            border-color: var(--accent);
+            background: var(--accent-bg-hover);
+        }
+
+        .rl-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .rl-name {
+            color: var(--text-1);
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .rl-meta {
+            color: var(--text-2);
+            font-size: 0.74rem;
+            font-weight: 400;
+        }
+
+        .rl-meta strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ── Light/dark toggle ── */
+        #theme-toggle {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 100;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-strong);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 17px;
+            line-height: 38px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0;
+            color: var(--accent);
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        #theme-toggle:hover {
+            background: var(--accent-hover);
+        }
+
+        /* ── Links ── */
+        a,
+        a:visited {
+            color: var(--accent) !important;
+            text-decoration: none !important;
+        }
+
+        a:hover,
+        a:focus {
+            color: var(--accent) !important;
+            opacity: 0.8;
+            text-decoration: none !important;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        .status-note a {
+            text-decoration: underline !important;
+        }
+
+        .logo a {
+            opacity: 0.9;
+            transition: opacity 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+
+        .logo a:hover {
+            opacity: 1;
+            transform: scale(1.04);
+        }
+
+        .site-logo {
+            max-height: 100px;
+            height: auto;
+            width: auto;
+            max-width: 100%;
+        }
+
+        @media (max-width: 570px) {
+            .site-logo {
+                width: 100%;
+                max-height: none;
+            }
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-2);
+        }
+
+        .site-footer p {
+            margin: 0 0 0.35rem;
+        }
+
+        .site-footer a {
+            color: var(--text-2) !important;
+        }
+
+        .site-footer a:hover {
+            color: var(--accent) !important;
+            opacity: 1;
+        }
+
+        .site-footer .created-with.stx-created {
+            color: var(--text-2);
+            font-size: 0.8rem;
+        }
+
+        /* ── CSS-only falling leaves (TinyMCE-safe, no JS/canvas) ── */
+        .leaves {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .lf {
+            position: absolute;
+            top: -30px;
+            width: var(--sz, 14px);
+            height: calc(var(--sz, 14px) * 1.4);
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            opacity: var(--op-d, 0.12);
+        }
+
+        .lf::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50% 0 50% 0;
+            transform: rotate(45deg);
+            background: var(--cd, #00ac00);
+        }
+
+        @media (prefers-color-scheme: light) {
+            .lf { opacity: var(--op-l, 0.18); }
+            .lf::before { background: var(--cl, #006400); }
+        }
+
+        :root.theme-light .lf { opacity: var(--op-l, 0.18); }
+        :root.theme-light .lf::before { background: var(--cl, #006400); }
+        :root.theme-dark .lf { opacity: var(--op-d, 0.12); }
+        :root.theme-dark .lf::before { background: var(--cd, #00ac00); }
+
+        .lf-a { animation-name: lf-fall-a; }
+        .lf-b { animation-name: lf-fall-b; }
+        .lf-c { animation-name: lf-fall-c; }
+
+        @keyframes lf-fall-a {
+            0% { transform: translate(0, -30px) rotate(0deg); }
+            20% { transform: translate(35px, 20vh) rotate(80deg); }
+            40% { transform: translate(-15px, 40vh) rotate(155deg); }
+            60% { transform: translate(28px, 60vh) rotate(230deg); }
+            80% { transform: translate(-12px, 80vh) rotate(305deg); }
+            100% { transform: translate(5px, 110vh) rotate(360deg); }
+        }
+
+        @keyframes lf-fall-b {
+            0% { transform: translate(0, -30px) rotate(15deg); }
+            20% { transform: translate(-28px, 20vh) rotate(88deg); }
+            40% { transform: translate(22px, 40vh) rotate(163deg); }
+            60% { transform: translate(-32px, 60vh) rotate(238deg); }
+            80% { transform: translate(18px, 80vh) rotate(313deg); }
+            100% { transform: translate(-8px, 110vh) rotate(390deg); }
+        }
+
+        @keyframes lf-fall-c {
+            0% { transform: translate(0, -30px) rotate(-10deg); }
+            20% { transform: translate(18px, 20vh) rotate(60deg); }
+            40% { transform: translate(-38px, 40vh) rotate(130deg); }
+            60% { transform: translate(14px, 60vh) rotate(205deg); }
+            80% { transform: translate(-22px, 80vh) rotate(275deg); }
+            100% { transform: translate(10px, 110vh) rotate(345deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .lf { animation: none; display: none; }
+            .region-link { transition: none; }
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/site-banner.css">
+    <link rel="stylesheet" href="/assets/site-brand.css">
+</head>
+
+<body>
+    <button type="button" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">&#9788;</button>
+
+    <div class="leaves" aria-hidden="true">
+        <span class="lf lf-a" style="left:42%;animation-duration:10.2s;animation-delay:-0.7s;--sz:10px;--op-d:0.09;--op-l:0.2;--cd:#007800;--cl:#00ac00"></span>
+        <span class="lf lf-b" style="left:8%;animation-duration:8.7s;animation-delay:-1.3s;--sz:11px;--op-d:0.13;--op-l:0.13;--cd:#00ac00;--cl:#00ac00"></span>
+        <span class="lf lf-c" style="left:55%;animation-duration:11.5s;animation-delay:-13.2s;--sz:13px;--op-d:0.16;--op-l:0.2;--cd:#00ac00;--cl:#00ac00"></span>
+        <span class="lf lf-a" style="left:75%;animation-duration:14.8s;animation-delay:-8.4s;--sz:10px;--op-d:0.15;--op-l:0.14;--cd:#00c800;--cl:#007a00"></span>
+        <span class="lf lf-b" style="left:70%;animation-duration:9.5s;animation-delay:-12.4s;--sz:20px;--op-d:0.1;--op-l:0.2;--cd:#00b400;--cl:#007a00"></span>
+        <span class="lf lf-c" style="left:48%;animation-duration:12.7s;animation-delay:-12.6s;--sz:19px;--op-d:0.09;--op-l:0.15;--cd:#00b400;--cl:#00ac00"></span>
+        <span class="lf lf-a" style="left:55%;animation-duration:10.7s;animation-delay:-3.1s;--sz:17px;--op-d:0.12;--op-l:0.15;--cd:#009900;--cl:#005c00"></span>
+        <span class="lf lf-b" style="left:32%;animation-duration:9.4s;animation-delay:-12.9s;--sz:17px;--op-d:0.19;--op-l:0.22;--cd:#007800;--cl:#00ac00"></span>
+        <span class="lf lf-c" style="left:10%;animation-duration:10.3s;animation-delay:-12.3s;--sz:22px;--op-d:0.12;--op-l:0.25;--cd:#00c800;--cl:#006400"></span>
+        <span class="lf lf-a" style="left:86%;animation-duration:11.5s;animation-delay:-12.9s;--sz:22px;--op-d:0.19;--op-l:0.16;--cd:#00b400;--cl:#009000"></span>
+        <span class="lf lf-b" style="left:77%;animation-duration:13.4s;animation-delay:-7.0s;--sz:11px;--op-d:0.18;--op-l:0.25;--cd:#00c800;--cl:#005c00"></span>
+        <span class="lf lf-c" style="left:92%;animation-duration:12.3s;animation-delay:-8.6s;--sz:10px;--op-d:0.19;--op-l:0.17;--cd:#006400;--cl:#006400"></span>
+        <span class="lf lf-a" style="left:22%;animation-duration:11.4s;animation-delay:-7.7s;--sz:12px;--op-d:0.18;--op-l:0.24;--cd:#007800;--cl:#005c00"></span>
+        <span class="lf lf-b" style="left:3%;animation-duration:14.6s;animation-delay:-11.1s;--sz:15px;--op-d:0.1;--op-l:0.2;--cd:#00ac00;--cl:#00ac00"></span>
+    </div>
+
+    <main>
+        <div class="wrapper">
+
+            <div class="logo">
+                <a href="https://stuxedo.com" target="_blank" rel="noopener" title="Stuxedo">
+                    <img class="site-logo" src="https://global.media.stuxedo.com/logo.png" alt="Stuxedo Logo"
+                        title="Stuxedo Logo">
+                </a>
+                <p class="tagline">The Smarter, Greener Option</p>
+            </div>
+
+            <div class="accent-bar"></div>
+
+            <div class="region-head">
+                <span class="page-flag" id="page-flag" hidden></span>
+                <p class="eyebrow" id="page-eyebrow">Stuxedo</p>
+                <h1 id="page-heading">Stuxedo regions</h1>
+                <p class="sub" id="page-sub">Pick a region to visit its website.</p>
+            </div>
+
+            <noscript>
+                <p class="sub">This page needs JavaScript to show the Stuxedo regions.</p>
+            </noscript>
+
+            <section class="card" id="servers-card" aria-labelledby="servers-label" hidden>
+                <p class="card-label" id="servers-label">Servers</p>
+                <ul id="server-list"></ul>
+                <p class="status-note" id="status-note" hidden>Live status from
+                    <a href="https://status.stux.group" target="_blank" rel="noopener">status.stux.group</a></p>
+            </section>
+
+            <nav class="card" id="regions-card" aria-labelledby="regions-label">
+                <p class="card-label" id="regions-label">All regions</p>
+                <ul class="region-grid" id="region-grid"></ul>
+            </nav>
+
+            <footer class="site-footer">
+                <p class="footer-links">
+                    <a href="changelog" id="version-link">Changelog</a>
+                    &middot;
+                    <a href="legal">Boring Legal Stuff</a>
+                    &middot;
+                    <a href="sitemap/">Sitemap</a>
+                </p>
+                <p class="created-with stx-created">Created with <svg class="cw-love" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><title>Love</title><path d="M8 14.3S1.4 10.2 1.4 5.7A3.4 3.4 0 0 1 8 4a3.4 3.4 0 0 1 6.6 1.7c0 4.5-6.6 8.6-6.6 8.6z"/></svg> / <svg class="cw-code" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><title>Code</title><path d="M5 3.7 6.2 4.9 3.1 8l3.1 3.1L5 12.3.7 8zM11 3.7 15.3 8 11 12.3l-1.2-1.2L12.9 8 9.8 4.9zM9.2 2.2l1.2.4-3.6 11.2-1.2-.4z"/></svg> / <svg class="cw-coffee" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><title>Coffee</title><path d="M1.5 5.5h9.5v4a3.5 3.5 0 0 1-3.5 3.5h-2.5A3.5 3.5 0 0 1 1.5 9.5zM12 6.3h.7a2.4 2.4 0 0 1 0 4.8h-1.3c.3-.4.5-.9.6-1.4h.7a1 1 0 0 0 0-2H12zM3.8 1.4H5v2.8H3.8zM6.6 1.4h1.2v2.8H6.6z"/></svg><span class="cw-sr"> love, code and coffee</span> by <a href="https://stuxedo.com" target="_blank" rel="noopener">Stuxedo</a></p>
+                <p class="copyright">Stuxedo is operated by Stux.Cloud, which is operated by Stux Group Ltd. <svg class="cw-copy" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><title>Copyright</title><path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1.4a5.6 5.6 0 1 0 0 11.2A5.6 5.6 0 0 0 8 2.4zM10.3 6.2A2.7 2.7 0 1 0 10.3 9.8l1.1.8A4 4 0 1 1 11.4 5.4z"/></svg><span class="cw-sr">&copy;</span> <span data-copyright-years data-start="2026">2026</span> Stux.Group. All rights reserved.</p>
+            </footer>
+
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            var btn = document.getElementById('theme-toggle');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var stored = null;
+            try { stored = localStorage.getItem('stuxedo-theme'); } catch (e) { /* storage blocked */ }
+            var isDark = stored ? stored === 'dark' : prefersDark;
+
+            function apply(dark) {
+                root.classList.toggle('theme-dark', dark);
+                root.classList.toggle('theme-light', !dark);
+                btn.textContent = dark ? '☀' : '☾';
+                btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+            }
+
+            apply(isDark);
+
+            btn.addEventListener('click', function () {
+                isDark = !isDark;
+                try { localStorage.setItem('stuxedo-theme', isDark ? 'dark' : 'light'); } catch (e) { /* storage blocked */ }
+                apply(isDark);
+            });
+        })();
+    </script>
+    <script src="assets/regions.js"></script>
+    <script>
+        (function () {
+            var data = window.REGION_DATA;
+            if (!data || !data.regions) return;
+            var brand = data.brand;
+            var regions = data.regions;
+            var SVG_NS = 'http://www.w3.org/2000/svg';
+
+            function el(tag, cls, text) {
+                var n = document.createElement(tag);
+                if (cls) n.className = cls;
+                if (text !== undefined) n.textContent = text;
+                return n;
+            }
+            function svg(inner) {
+                var s = document.createElementNS(SVG_NS, 'svg');
+                s.setAttribute('viewBox', '0 0 24 24');
+                s.setAttribute('aria-hidden', 'true');
+                s.setAttribute('focusable', 'false');
+                s.innerHTML = inner; // fixed icon markup below, not user input
+                return s;
+            }
+            var ICONS = {
+                leaf: '<path d="M20 4C11 4 5 9.5 5 16.5c0 1 .1 2 .4 3C13.5 19.5 20 14 20 4z"/><path d="M5.4 19.5C8 15 11 12 15 9.5"/>',
+                server: '<rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>'
+            };
+
+            function findRegion(code) {
+                code = String(code || '').trim().toLowerCase();
+                for (var i = 0; i < regions.length; i++) {
+                    if (regions[i].code === code) return regions[i];
+                }
+                return null;
+            }
+
+            // ?region=uk (previews, direct links) wins; otherwise the first label of the framing
+            // site's host, read from document.referrer: uk.stuxedo.net -> uk.
+            function detectRegion() {
+                var m = /[?&]region=([^&#]*)/.exec(location.search);
+                if (m) {
+                    var fromQuery;
+                    try { fromQuery = findRegion(decodeURIComponent(m[1].replace(/\+/g, ' '))); } catch (e) { fromQuery = null; }
+                    if (fromQuery) return fromQuery;
+                }
+                if (window.parent !== window && document.referrer) {
+                    try {
+                        var host = new URL(document.referrer).hostname;
+                        return findRegion(host.split('.')[0]);
+                    } catch (e) { /* referrer not a valid URL */ }
+                }
+                return null;
+            }
+
+            function flagEl(region) {
+                if (region.flag) {
+                    var f = el('span', 'fi fi-' + region.flag);
+                    f.setAttribute('aria-hidden', 'true');
+                    return f;
+                }
+                var l = el('span', 'fi-leaf');
+                l.setAttribute('aria-hidden', 'true');
+                l.appendChild(svg(ICONS[region.icon] || ICONS.leaf));
+                return l;
+            }
+
+            function regionUrl(region) {
+                return 'https://' + region.code + '.' + brand.domain + '/';
+            }
+
+            function hostOf(region, server) {
+                return server.name + '.servers.' + region.code + '.' + brand.domain;
+            }
+
+            function plural(n) {
+                return n + ' server' + (n === 1 ? '' : 's');
+            }
+
+            var region = detectRegion();
+
+            // ── Heading ──
+            var heading = document.getElementById('page-heading');
+            var eyebrow = document.getElementById('page-eyebrow');
+            var sub = document.getElementById('page-sub');
+            var pageFlag = document.getElementById('page-flag');
+            if (region) {
+                heading.textContent = region.name;
+                eyebrow.textContent = brand.name + ' region';
+                sub.textContent = region.flag
+                    ? 'Servers hosted by ' + brand.name + ' in ' + region.name + '.'
+                    : brand.name + '’s ' + region.name + ' region.';
+                pageFlag.appendChild(flagEl(region));
+                pageFlag.hidden = false;
+                document.getElementById('regions-label').textContent = 'All regions';
+                document.title = region.name + ' — ' + brand.name;
+            } else {
+                heading.textContent = brand.name + ' regions';
+                eyebrow.textContent = brand.name;
+                sub.textContent = 'Pick a region to visit its website.';
+                document.title = brand.name + ' regions';
+            }
+            var description = document.querySelector('meta[name="description"]');
+            if (description) description.setAttribute('content', region ? 'The ' + region.name + ' region of ' + brand.name : brand.name + ' regions');
+
+            // ── Servers ──
+            var monitored = [];
+            if (region) {
+                var card = document.getElementById('servers-card');
+                var list = document.getElementById('server-list');
+                card.hidden = false;
+                if (region.servers.length) {
+                    region.servers.forEach(function (server) {
+                        var li = el('li', 'server-row');
+                        var icon = el('span', 'info-icon');
+                        icon.appendChild(svg(ICONS.server));
+                        var text = el('span', 'server-text');
+                        text.appendChild(el('span', 'server-name', server.name));
+                        text.appendChild(el('span', 'server-host', hostOf(region, server)));
+                        li.appendChild(icon);
+                        li.appendChild(text);
+                        var badge = el('span', 'badge');
+                        if (server.monitor) {
+                            badge.hidden = true; // shown once the live status arrives
+                            monitored.push({ server: server, badge: badge });
+                        } else {
+                            badge.className = 'badge badge-none';
+                            badge.textContent = 'Not monitored';
+                        }
+                        li.appendChild(badge);
+                        list.appendChild(li);
+                    });
+                    if (monitored.length) document.getElementById('status-note').hidden = false;
+                } else {
+                    var empty = el('div', 'empty');
+                    var icon = el('span', 'info-icon');
+                    icon.appendChild(svg(ICONS.server));
+                    var msg = el('p');
+                    msg.appendChild(el('strong', null, 'No servers in this region yet'));
+                    msg.appendChild(document.createTextNode('There’s nothing to show here for now. Servers will appear on this page as they’re added.'));
+                    empty.appendChild(icon);
+                    empty.appendChild(msg);
+                    list.parentNode.insertBefore(empty, list);
+                    list.parentNode.removeChild(list);
+                }
+            }
+
+            // ── Region switcher ──
+            var grid = document.getElementById('region-grid');
+            regions.forEach(function (r) {
+                var li = document.createElement('li');
+                var a = el('a', 'region-link');
+                a.href = regionUrl(r);
+                a.target = '_top';
+                a.rel = 'noopener';
+                if (region && r.code === region.code) a.setAttribute('aria-current', 'page');
+                a.appendChild(flagEl(r));
+                var text = el('span', 'rl-text');
+                text.appendChild(el('span', 'rl-name', r.name));
+                var meta = el('span', 'rl-meta');
+                if (region && r.code === region.code) {
+                    meta.appendChild(el('strong', null, 'You are here'));
+                } else {
+                    meta.textContent = r.servers.length ? plural(r.servers.length) : 'No servers yet';
+                }
+                text.appendChild(meta);
+                a.appendChild(text);
+                li.appendChild(a);
+                grid.appendChild(li);
+            });
+
+            // ── Live status (Stux.Group status page, GitHup summary.json) ──
+            var PILL = { up: 'Online', degraded: 'Degraded', down: 'Offline' };
+            if (monitored.length) {
+                fetch(brand.statusSummary + '?t=' + Date.now(), { cache: 'no-store' })
+                    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+                    .then(function (summary) {
+                        var bySlug = {};
+                        (summary.monitors || []).forEach(function (m) { bySlug[m.slug] = m; });
+                        monitored.forEach(function (item) {
+                            var m = bySlug[item.server.monitor];
+                            if (!m || !PILL[m.status]) return;
+                            item.badge.className = 'badge badge-' + m.status;
+                            item.badge.textContent = PILL[m.status];
+                            item.badge.title = 'Live from ' + brand.statusUrl.replace(/^https?:\/\//, '');
+                            item.badge.hidden = false;
+                        });
+                    })
+                    .catch(function () { /* no status: show no badge */ });
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            // Mirror the title to the parent (the wrapper page on the region's website).
+            if (window.parent !== window) {
+                var parentOrigin = "*";
+                try { if (document.referrer) parentOrigin = new URL(document.referrer).origin; } catch (e) { /* keep "*" */ }
+                window.parent.postMessage(
+                    { type: "page-title", title: document.title },
+                    parentOrigin
+                );
+            }
+        })();
+    </script>
+    <script>
+        fetch('VERSION.md')
+            .then(function (r) { return r.text(); })
+            .then(function (v) {
+                document.getElementById('version-link').textContent = 'v' + v.trim();
+            })
+            .catch(function () {});
+    </script>
+    <script>(function(){var y=new Date().getFullYear();document.querySelectorAll('[data-copyright-years]').forEach(function(e){var s=parseInt(e.getAttribute('data-start'),10);e.textContent=s>=y?String(y):s+'–'+y;});})();</script>
+    <script src="/assets/dev-mode.js"></script>
+    <script src="/assets/site-banners.js"></script>
+    <script src="/assets/site-banner.js"></script>
+</body>
+
+</html>

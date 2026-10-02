@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Stuxedo</title>
+    <meta name="description" content="A Stuxedo Region">
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <link rel="icon" type="image/png" href="https://global.media.stuxedo.com/icon.png" />
+    <style type="text/css">
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        #content { position:absolute; left: 0; right: 0; bottom: 0; top: 0px; }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <iframe width="100%" height="100%" frameborder="0" src="https://regionpage.stuxedo.net" title="Stuxedo region"></iframe>
+    </div>
+    <script>
+        if (window.location.host != "") { document.title = window.location.host; }
+        window.addEventListener("message", function (event) {
+            if (event.origin !== "https://regionpage.stuxedo.net") return;
+            if (event.data && event.data.type === "page-title" && event.data.title) { document.title = event.data.title; }
+        });
+    </script>
+</body>
+</html>
