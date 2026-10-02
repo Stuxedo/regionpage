@@ -26,7 +26,7 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 | United Kingdom | `uk` | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` (not monitored) |
 | Europe | `eu` | [https://eu.stuxedo.net](https://eu.stuxedo.net) | None yet |
 | Spain | `es` | [https://es.stuxedo.net](https://es.stuxedo.net) | `mixr1.servers.es.stuxedo.net` |
-| United States | `us` | [https://us.stuxedo.net](https://us.stuxedo.net) | `down1.servers.us.stuxedo.net` (not monitored) |
+| United States | `us` | [https://us.stuxedo.net](https://us.stuxedo.net) | `down1.servers.us.stuxedo.net` |
 | Canada | `ca` | [https://ca.stuxedo.net](https://ca.stuxedo.net) | `kitt1.servers.ca.stuxedo.net` |
 | Australia | `au` | [https://au.stuxedo.net](https://au.stuxedo.net) | None yet |
 | Japan | `jp` | [https://jp.stuxedo.net](https://jp.stuxedo.net) | None yet |

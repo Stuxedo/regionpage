@@ -2,6 +2,12 @@
 
 All notable changes to regionpage are documented here.
 
+## v1.0.1
+
+### Changed
+
+- down1 (United States) shows its live status, now that it is monitored on status.stux.group
+
 ## v1.0.0
 
 ### Added

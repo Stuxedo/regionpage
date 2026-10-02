@@ -47,7 +47,7 @@ window.REGION_DATA = {
       "name": "United States",
       "flag": "us",
       "servers": [
-        { "name": "down1", "monitor": null }
+        { "name": "down1", "monitor": "down1" }
       ]
     },
     {
