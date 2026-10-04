@@ -82,6 +82,12 @@ This project uses GitHub Pages and can be automatically deployed to your desired
 
 The live version is deployed at [regionpage.stuxedo.net](https://regionpage.stuxedo.net).
 
+## Previous designs
+
+This repository always holds the current Stuxedo design (v2, the tuxedo-cat logo colours). Earlier designs are preserved as their own archived repositories:
+
+- [regionpage-v1](https://github.com/Stuxedo/regionpage-v1): the original green design, live at [regionpage-v1.stuxedo.net](https://regionpage-v1.stuxedo.net/)
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to get involved, and [CHANGELOG.md](CHANGELOG.md) for release history.

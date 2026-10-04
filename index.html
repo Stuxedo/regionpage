@@ -16,17 +16,17 @@
 
         /* ── CSS variables (dark first; light follows the OS, and the toggle's classes win over both) ── */
         :root {
-            --bg: #051e03;
+            --bg: #031e0d;
             --bg-card: rgba(255, 255, 255, 0.04);
             --border: rgba(255, 255, 255, 0.07);
-            --accent: #00ac00;
-            --accent-gradient: linear-gradient(90deg, #006400, #00ac00);
-            --accent-dim: rgba(0, 172, 0, 0.13);
-            --accent-bg: rgba(0, 172, 0, 0.12);
-            --accent-bg-hover: rgba(0, 172, 0, 0.18);
-            --accent-border-strong: rgba(0, 172, 0, 0.35);
-            --accent-hover: rgba(0, 172, 0, 0.22);
-            --accent-border-hover: rgba(0, 172, 0, 0.55);
+            --accent: #4bf708;
+            --accent-gradient: linear-gradient(90deg, #4bf708, #4bf708);
+            --accent-dim: rgba(75, 247, 8, 0.13);
+            --accent-bg: rgba(75, 247, 8, 0.12);
+            --accent-bg-hover: rgba(75, 247, 8, 0.18);
+            --accent-border-strong: rgba(75, 247, 8, 0.35);
+            --accent-hover: rgba(75, 247, 8, 0.22);
+            --accent-border-hover: rgba(75, 247, 8, 0.55);
             --text-1: #eef2ee;
             --text-2: rgba(238, 242, 238, 0.6);
             --text-3: rgba(238, 242, 238, 0.35);
@@ -37,16 +37,17 @@
 
         @media (prefers-color-scheme: light) {
             :root:not(.theme-dark) {
-                --bg: #e8ffe6;
+                --bg: #e6fff0;
                 --bg-card: rgba(0, 0, 0, 0.04);
-                --border: rgba(0, 100, 0, 0.15);
-                --accent: #006400;
-                --accent-dim: rgba(0, 100, 0, 0.08);
-                --accent-bg: rgba(0, 100, 0, 0.07);
-                --accent-bg-hover: rgba(0, 100, 0, 0.11);
-                --accent-border-strong: rgba(0, 100, 0, 0.28);
-                --accent-hover: rgba(0, 100, 0, 0.13);
-                --accent-border-hover: rgba(0, 100, 0, 0.45);
+                --border: rgba(3, 47, 20, 0.15);
+                --accent: #032f14;
+            --accent-gradient: linear-gradient(90deg, #032f14, #032f14);
+                --accent-dim: rgba(3, 47, 20, 0.08);
+                --accent-bg: rgba(3, 47, 20, 0.07);
+                --accent-bg-hover: rgba(3, 47, 20, 0.11);
+                --accent-border-strong: rgba(3, 47, 20, 0.28);
+                --accent-hover: rgba(3, 47, 20, 0.13);
+                --accent-border-hover: rgba(3, 47, 20, 0.45);
                 --text-1: #1a1a1a;
                 --text-2: rgba(0, 0, 0, 0.62);
                 --text-3: rgba(0, 0, 0, 0.35);
@@ -57,16 +58,17 @@
         }
 
         :root.theme-dark {
-            --bg: #051e03;
+            --bg: #031e0d;
             --bg-card: rgba(255, 255, 255, 0.04);
             --border: rgba(255, 255, 255, 0.07);
-            --accent: #00ac00;
-            --accent-dim: rgba(0, 172, 0, 0.13);
-            --accent-bg: rgba(0, 172, 0, 0.12);
-            --accent-bg-hover: rgba(0, 172, 0, 0.18);
-            --accent-border-strong: rgba(0, 172, 0, 0.35);
-            --accent-hover: rgba(0, 172, 0, 0.22);
-            --accent-border-hover: rgba(0, 172, 0, 0.55);
+            --accent: #4bf708;
+            --accent-gradient: linear-gradient(90deg, #4bf708, #4bf708);
+            --accent-dim: rgba(75, 247, 8, 0.13);
+            --accent-bg: rgba(75, 247, 8, 0.12);
+            --accent-bg-hover: rgba(75, 247, 8, 0.18);
+            --accent-border-strong: rgba(75, 247, 8, 0.35);
+            --accent-hover: rgba(75, 247, 8, 0.22);
+            --accent-border-hover: rgba(75, 247, 8, 0.55);
             --text-1: #eef2ee;
             --text-2: rgba(238, 242, 238, 0.6);
             --text-3: rgba(238, 242, 238, 0.35);
@@ -76,16 +78,17 @@
         }
 
         :root.theme-light {
-            --bg: #e8ffe6;
+            --bg: #e6fff0;
             --bg-card: rgba(0, 0, 0, 0.04);
-            --border: rgba(0, 100, 0, 0.15);
-            --accent: #006400;
-            --accent-dim: rgba(0, 100, 0, 0.08);
-            --accent-bg: rgba(0, 100, 0, 0.07);
-            --accent-bg-hover: rgba(0, 100, 0, 0.11);
-            --accent-border-strong: rgba(0, 100, 0, 0.28);
-            --accent-hover: rgba(0, 100, 0, 0.13);
-            --accent-border-hover: rgba(0, 100, 0, 0.45);
+            --border: rgba(3, 47, 20, 0.15);
+            --accent: #032f14;
+            --accent-gradient: linear-gradient(90deg, #032f14, #032f14);
+            --accent-dim: rgba(3, 47, 20, 0.08);
+            --accent-bg: rgba(3, 47, 20, 0.07);
+            --accent-bg-hover: rgba(3, 47, 20, 0.11);
+            --accent-border-strong: rgba(3, 47, 20, 0.28);
+            --accent-hover: rgba(3, 47, 20, 0.13);
+            --accent-border-hover: rgba(3, 47, 20, 0.45);
             --text-1: #1a1a1a;
             --text-2: rgba(0, 0, 0, 0.62);
             --text-3: rgba(0, 0, 0, 0.35);
@@ -568,18 +571,18 @@
             height: 100%;
             border-radius: 50% 0 50% 0;
             transform: rotate(45deg);
-            background: var(--cd, #00ac00);
+            background: var(--cd, #4bf708);
         }
 
         @media (prefers-color-scheme: light) {
             .lf { opacity: var(--op-l, 0.18); }
-            .lf::before { background: var(--cl, #006400); }
+            .lf::before { background: var(--cl, #032f14); }
         }
 
         :root.theme-light .lf { opacity: var(--op-l, 0.18); }
-        :root.theme-light .lf::before { background: var(--cl, #006400); }
+        :root.theme-light .lf::before { background: var(--cl, #032f14); }
         :root.theme-dark .lf { opacity: var(--op-d, 0.12); }
-        :root.theme-dark .lf::before { background: var(--cd, #00ac00); }
+        :root.theme-dark .lf::before { background: var(--cd, #4bf708); }
 
         .lf-a { animation-name: lf-fall-a; }
         .lf-b { animation-name: lf-fall-b; }
@@ -625,20 +628,20 @@
     <button type="button" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">&#9788;</button>
 
     <div class="leaves" aria-hidden="true">
-        <span class="lf lf-a" style="left:42%;animation-duration:10.2s;animation-delay:-0.7s;--sz:10px;--op-d:0.09;--op-l:0.2;--cd:#007800;--cl:#00ac00"></span>
-        <span class="lf lf-b" style="left:8%;animation-duration:8.7s;animation-delay:-1.3s;--sz:11px;--op-d:0.13;--op-l:0.13;--cd:#00ac00;--cl:#00ac00"></span>
-        <span class="lf lf-c" style="left:55%;animation-duration:11.5s;animation-delay:-13.2s;--sz:13px;--op-d:0.16;--op-l:0.2;--cd:#00ac00;--cl:#00ac00"></span>
-        <span class="lf lf-a" style="left:75%;animation-duration:14.8s;animation-delay:-8.4s;--sz:10px;--op-d:0.15;--op-l:0.14;--cd:#00c800;--cl:#007a00"></span>
-        <span class="lf lf-b" style="left:70%;animation-duration:9.5s;animation-delay:-12.4s;--sz:20px;--op-d:0.1;--op-l:0.2;--cd:#00b400;--cl:#007a00"></span>
-        <span class="lf lf-c" style="left:48%;animation-duration:12.7s;animation-delay:-12.6s;--sz:19px;--op-d:0.09;--op-l:0.15;--cd:#00b400;--cl:#00ac00"></span>
-        <span class="lf lf-a" style="left:55%;animation-duration:10.7s;animation-delay:-3.1s;--sz:17px;--op-d:0.12;--op-l:0.15;--cd:#009900;--cl:#005c00"></span>
-        <span class="lf lf-b" style="left:32%;animation-duration:9.4s;animation-delay:-12.9s;--sz:17px;--op-d:0.19;--op-l:0.22;--cd:#007800;--cl:#00ac00"></span>
-        <span class="lf lf-c" style="left:10%;animation-duration:10.3s;animation-delay:-12.3s;--sz:22px;--op-d:0.12;--op-l:0.25;--cd:#00c800;--cl:#006400"></span>
-        <span class="lf lf-a" style="left:86%;animation-duration:11.5s;animation-delay:-12.9s;--sz:22px;--op-d:0.19;--op-l:0.16;--cd:#00b400;--cl:#009000"></span>
-        <span class="lf lf-b" style="left:77%;animation-duration:13.4s;animation-delay:-7.0s;--sz:11px;--op-d:0.18;--op-l:0.25;--cd:#00c800;--cl:#005c00"></span>
-        <span class="lf lf-c" style="left:92%;animation-duration:12.3s;animation-delay:-8.6s;--sz:10px;--op-d:0.19;--op-l:0.17;--cd:#006400;--cl:#006400"></span>
-        <span class="lf lf-a" style="left:22%;animation-duration:11.4s;animation-delay:-7.7s;--sz:12px;--op-d:0.18;--op-l:0.24;--cd:#007800;--cl:#005c00"></span>
-        <span class="lf lf-b" style="left:3%;animation-duration:14.6s;animation-delay:-11.1s;--sz:15px;--op-d:0.1;--op-l:0.2;--cd:#00ac00;--cl:#00ac00"></span>
+        <span class="lf lf-a" style="left:42%;animation-duration:10.2s;animation-delay:-0.7s;--sz:10px;--op-d:0.09;--op-l:0.2;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-b" style="left:8%;animation-duration:8.7s;animation-delay:-1.3s;--sz:11px;--op-d:0.13;--op-l:0.13;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-c" style="left:55%;animation-duration:11.5s;animation-delay:-13.2s;--sz:13px;--op-d:0.16;--op-l:0.2;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-a" style="left:75%;animation-duration:14.8s;animation-delay:-8.4s;--sz:10px;--op-d:0.15;--op-l:0.14;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-b" style="left:70%;animation-duration:9.5s;animation-delay:-12.4s;--sz:20px;--op-d:0.1;--op-l:0.2;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-c" style="left:48%;animation-duration:12.7s;animation-delay:-12.6s;--sz:19px;--op-d:0.09;--op-l:0.15;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-a" style="left:55%;animation-duration:10.7s;animation-delay:-3.1s;--sz:17px;--op-d:0.12;--op-l:0.15;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-b" style="left:32%;animation-duration:9.4s;animation-delay:-12.9s;--sz:17px;--op-d:0.19;--op-l:0.22;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-c" style="left:10%;animation-duration:10.3s;animation-delay:-12.3s;--sz:22px;--op-d:0.12;--op-l:0.25;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-a" style="left:86%;animation-duration:11.5s;animation-delay:-12.9s;--sz:22px;--op-d:0.19;--op-l:0.16;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-b" style="left:77%;animation-duration:13.4s;animation-delay:-7.0s;--sz:11px;--op-d:0.18;--op-l:0.25;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-c" style="left:92%;animation-duration:12.3s;animation-delay:-8.6s;--sz:10px;--op-d:0.19;--op-l:0.17;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-a" style="left:22%;animation-duration:11.4s;animation-delay:-7.7s;--sz:12px;--op-d:0.18;--op-l:0.24;--cd:#4bf708;--cl:#032f14"></span>
+        <span class="lf lf-b" style="left:3%;animation-duration:14.6s;animation-delay:-11.1s;--sz:15px;--op-d:0.1;--op-l:0.2;--cd:#4bf708;--cl:#032f14"></span>
     </div>
 
     <main>

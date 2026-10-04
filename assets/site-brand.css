@@ -6,8 +6,8 @@
 .site-banners {
     --banner-page-bg: var(--bg);
     --banner-text: var(--text-1);
-    --banner-site: #4cd94c;
-    --banner-site-light: #0b6b0b;
+    --banner-site: #4bf708;
+    --banner-site-light: #032f14;
 }
 
 /* Fixed mode pads <body> by the banner's height; keep that inside full-height layouts. */
