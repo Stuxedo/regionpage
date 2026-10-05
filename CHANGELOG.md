@@ -2,6 +2,13 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.0.2
+
+### Changed
+
+- README footer now matches the Stuxedo `.github` footer: "Built & Maintained by Stuxedo" with the Stuxedo icon, and "Stuxedo is a part of the Stux.Group brand of businesses" (replacing v2.0.1's "Stuxedo is operated by Stux Group Ltd…" line)
+- Every page's footer, the imprint and the privacy policy now say Stuxedo is operated by Stux Group Ltd, matching the other Stux.Group brands' pages, instead of "operated by Stux.Cloud, which is operated by Stux Group Ltd"
+
 ## v2.0.1
 
 ### Changed
