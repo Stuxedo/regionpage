@@ -2,6 +2,12 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.0.3
+
+### Fixed
+
+- The imprint said this page is published as Stuxedo, "which is operated by Stuxedo, which is operated by" Stux Group Ltd, repeating itself; it now reads "published as Stuxedo, which is operated by" Stux Group Ltd
+
 ## v2.0.2
 
 ### Changed
