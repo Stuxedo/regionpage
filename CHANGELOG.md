@@ -2,6 +2,12 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.3.0
+
+### Changed
+
+- EMEA, AMER and APAC each have their own globe in place of a flag (no flags exist for them), turned to face the area it covers: Europe and Africa, the Americas, and Asia with Australia. They replace the single generic globe, are drawn slightly larger in the flag box so the continents stay readable, and follow the brand colour in both themes (`globe-emea`, `globe-amer` and `globe-apac` in `assets/regions.js`)
+
 ## v2.2.0
 
 ### Added

@@ -12,7 +12,8 @@
  *                   for a top-level group; server counts add up through every level
  * region.longName   optional full name, e.g. "Europe, the Middle East and Africa" for EMEA
  * region.flag       a flag-icons code (https://flagicons.lipis.dev), or null for no flag
- * region.icon       used when flag is null: the icon drawn in the flag's place (globe, leaf)
+ * region.icon       used when flag is null: the icon drawn in the flag's place (globe-emea,
+ *                   globe-amer and globe-apac face each area; also globe, leaf)
  * server.name       the server's name; its hostname is <name>.servers.<code>.<domain>
  * server.monitor    the slug on the Stux.Group status page, or null when it isn't monitored
  *
@@ -26,7 +27,7 @@ window.REGION_DATA = {
     "statusSummary": "https://raw.githubusercontent.com/StuxGroup/Status/main/data/summary.json"
   },
   "regions": [
-    { "code": "emea", "name": "EMEA", "longName": "Europe, the Middle East and Africa", "flag": null, "icon": "globe", "servers": [] },
+    { "code": "emea", "name": "EMEA", "longName": "Europe, the Middle East and Africa", "flag": null, "icon": "globe-emea", "servers": [] },
     { "code": "eu", "name": "Europe", "parent": "emea", "flag": "eu", "servers": [] },
     {
       "code": "uk",
@@ -48,7 +49,7 @@ window.REGION_DATA = {
         { "name": "mixr1", "monitor": "mixr1" }
       ]
     },
-    { "code": "amer", "name": "AMER", "longName": "the Americas", "flag": null, "icon": "globe", "servers": [] },
+    { "code": "amer", "name": "AMER", "longName": "the Americas", "flag": null, "icon": "globe-amer", "servers": [] },
     {
       "code": "us",
       "name": "United States",
@@ -67,7 +68,7 @@ window.REGION_DATA = {
         { "name": "kitt1", "monitor": "kitt1" }
       ]
     },
-    { "code": "apac", "name": "APAC", "longName": "Asia-Pacific", "flag": null, "icon": "globe", "servers": [] },
+    { "code": "apac", "name": "APAC", "longName": "Asia-Pacific", "flag": null, "icon": "globe-apac", "servers": [] },
     { "code": "au", "name": "Australia", "parent": "apac", "flag": "au", "servers": [] },
     { "code": "jp", "name": "Japan", "parent": "apac", "flag": "jp", "servers": [] },
     { "code": "sg", "name": "Singapore", "parent": "apac", "flag": "sg", "servers": [] },
