@@ -8,12 +8,15 @@
  * script reads it with a JSON parser.
  *
  * brand.domain      the brand's region domain; a region lives at https://<code>.<domain>/
+ * region.parent     the code of the region it belongs to (EMEA > Europe > United Kingdom), or none
+ *                   for a top-level group; server counts add up through every level
+ * region.longName   optional full name, e.g. "Europe, the Middle East and Africa" for EMEA
  * region.flag       a flag-icons code (https://flagicons.lipis.dev), or null for no flag
- * region.icon       used when flag is null: the icon drawn in the flag's place
+ * region.icon       used when flag is null: the icon drawn in the flag's place (globe, leaf)
  * server.name       the server's name; its hostname is <name>.servers.<code>.<domain>
  * server.monitor    the slug on the Stux.Group status page, or null when it isn't monitored
  *
- * Regions are listed in the order they appear on the page.
+ * Regions are listed in the order they appear on the page, each after the region it belongs to.
  */
 window.REGION_DATA = {
   "brand": {
@@ -23,9 +26,12 @@ window.REGION_DATA = {
     "statusSummary": "https://raw.githubusercontent.com/StuxGroup/Status/main/data/summary.json"
   },
   "regions": [
+    { "code": "emea", "name": "EMEA", "longName": "Europe, the Middle East and Africa", "flag": null, "icon": "globe", "servers": [] },
+    { "code": "eu", "name": "Europe", "parent": "emea", "flag": "eu", "servers": [] },
     {
       "code": "uk",
       "name": "United Kingdom",
+      "parent": "eu",
       "flag": "gb",
       "servers": [
         { "name": "robo1", "monitor": "robo1" },
@@ -33,18 +39,20 @@ window.REGION_DATA = {
         { "name": "web1", "monitor": null }
       ]
     },
-    { "code": "eu", "name": "Europe", "flag": "eu", "servers": [] },
     {
       "code": "es",
       "name": "Spain",
+      "parent": "eu",
       "flag": "es",
       "servers": [
         { "name": "mixr1", "monitor": "mixr1" }
       ]
     },
+    { "code": "amer", "name": "AMER", "longName": "the Americas", "flag": null, "icon": "globe", "servers": [] },
     {
       "code": "us",
       "name": "United States",
+      "parent": "amer",
       "flag": "us",
       "servers": [
         { "name": "down1", "monitor": "down1" }
@@ -53,14 +61,16 @@ window.REGION_DATA = {
     {
       "code": "ca",
       "name": "Canada",
+      "parent": "amer",
       "flag": "ca",
       "servers": [
         { "name": "kitt1", "monitor": "kitt1" }
       ]
     },
-    { "code": "au", "name": "Australia", "flag": "au", "servers": [] },
-    { "code": "jp", "name": "Japan", "flag": "jp", "servers": [] },
-    { "code": "sg", "name": "Singapore", "flag": "sg", "servers": [] },
-    { "code": "in", "name": "India", "flag": "in", "servers": [] }
+    { "code": "apac", "name": "APAC", "longName": "Asia-Pacific", "flag": null, "icon": "globe", "servers": [] },
+    { "code": "au", "name": "Australia", "parent": "apac", "flag": "au", "servers": [] },
+    { "code": "jp", "name": "Japan", "parent": "apac", "flag": "jp", "servers": [] },
+    { "code": "sg", "name": "Singapore", "parent": "apac", "flag": "sg", "servers": [] },
+    { "code": "in", "name": "India", "parent": "apac", "flag": "in", "servers": [] }
   ]
 };

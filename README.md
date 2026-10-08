@@ -21,17 +21,20 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 ## Regions
 
 <!-- regions:start -->
-| Region | Code | Website | Servers |
-|---|---|---|---|
-| United Kingdom | `uk` | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` (not monitored) |
-| Europe | `eu` | [https://eu.stuxedo.net](https://eu.stuxedo.net) | None yet |
-| Spain | `es` | [https://es.stuxedo.net](https://es.stuxedo.net) | `mixr1.servers.es.stuxedo.net` |
-| United States | `us` | [https://us.stuxedo.net](https://us.stuxedo.net) | `down1.servers.us.stuxedo.net` |
-| Canada | `ca` | [https://ca.stuxedo.net](https://ca.stuxedo.net) | `kitt1.servers.ca.stuxedo.net` |
-| Australia | `au` | [https://au.stuxedo.net](https://au.stuxedo.net) | None yet |
-| Japan | `jp` | [https://jp.stuxedo.net](https://jp.stuxedo.net) | None yet |
-| Singapore | `sg` | [https://sg.stuxedo.net](https://sg.stuxedo.net) | None yet |
-| India | `in` | [https://in.stuxedo.net](https://in.stuxedo.net) | None yet |
+| Region | Code | Part of | Website | Servers |
+|---|---|---|---|---|
+| **EMEA** | `emea` | — | [https://emea.stuxedo.net](https://emea.stuxedo.net) | 4 across Europe |
+| Europe | `eu` | EMEA | [https://eu.stuxedo.net](https://eu.stuxedo.net) | 4 across United Kingdom, Spain |
+| United Kingdom | `uk` | Europe | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` (not monitored) |
+| Spain | `es` | Europe | [https://es.stuxedo.net](https://es.stuxedo.net) | `mixr1.servers.es.stuxedo.net` |
+| **AMER** | `amer` | — | [https://amer.stuxedo.net](https://amer.stuxedo.net) | 2 across United States, Canada |
+| United States | `us` | AMER | [https://us.stuxedo.net](https://us.stuxedo.net) | `down1.servers.us.stuxedo.net` |
+| Canada | `ca` | AMER | [https://ca.stuxedo.net](https://ca.stuxedo.net) | `kitt1.servers.ca.stuxedo.net` |
+| **APAC** | `apac` | — | [https://apac.stuxedo.net](https://apac.stuxedo.net) | None yet (covers Australia, Japan, Singapore, India) |
+| Australia | `au` | APAC | [https://au.stuxedo.net](https://au.stuxedo.net) | None yet |
+| Japan | `jp` | APAC | [https://jp.stuxedo.net](https://jp.stuxedo.net) | None yet |
+| Singapore | `sg` | APAC | [https://sg.stuxedo.net](https://sg.stuxedo.net) | None yet |
+| India | `in` | APAC | [https://in.stuxedo.net](https://in.stuxedo.net) | None yet |
 <!-- regions:end -->
 
 The regions and servers live in one file, [`assets/regions.js`](assets/regions.js). To add a region or a server, edit it there, then run `python scripts/build-readme.py` to refresh this table.

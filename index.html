@@ -446,6 +446,88 @@
             font-weight: 700;
         }
 
+        /* A region that contains others (EMEA > Europe > United Kingdom): its card spans the row and
+           its regions sit beneath it, indented along a guide line. The top level is a stack of groups. */
+        .region-grid.rg-top {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .rg-parent {
+            grid-column: 1 / -1;
+        }
+
+        .rg-sub {
+            margin: 10px 0 0 12px;
+            padding-left: 12px;
+            border-left: 2px solid var(--border);
+        }
+
+        /* Only the card itself, not its nested regions, sets its height (cards in a row stretch to 100%). */
+        .rg-parent > .region-link {
+            height: auto;
+        }
+
+        /* Phones: a lighter indent, and a single column from the second level down, so names like
+           "United Kingdom" and "Singapore" fit without breaking mid-word. */
+        @media (max-width: 480px) {
+            .rg-sub {
+                margin-left: 6px;
+                padding-left: 8px;
+            }
+
+            .rg-sub .rg-sub {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .rg-sub .rl-name {
+                overflow-wrap: break-word;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .rg-sub {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .rg-parent > .region-link .rl-name {
+            letter-spacing: 0.02em;
+        }
+
+        /* On a region's own page: its servers, under a heading per region when it has several */
+        .server-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1.1rem 0 0.6rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-2);
+        }
+
+        .server-group:first-child {
+            margin-top: 0;
+        }
+
+        .server-group + .server-row {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .eyebrow a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-border-strong);
+        }
+
+        .eyebrow a:hover {
+            color: var(--accent);
+        }
+
         /* ── Light/dark toggle ── */
         #theme-toggle {
             position: fixed;
@@ -745,6 +827,7 @@
             }
             var ICONS = {
                 leaf: '<path d="M20 4C11 4 5 9.5 5 16.5c0 1 .1 2 .4 3C13.5 19.5 20 14 20 4z"/><path d="M5.4 19.5C8 15 11 12 15 9.5"/>',
+                globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
                 server: '<rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>'
             };
 
@@ -791,11 +874,30 @@
             }
 
             function hostOf(region, server) {
-                return server.name + '.servers.' + region.code + '.' + brand.domain;
+                return server.name + '.servers.' + region.code + '.' + (brand.serverDomain || brand.domain);
             }
 
             function plural(n) {
                 return n + ' server' + (n === 1 ? '' : 's');
+            }
+
+            // Regions form a tree through region.parent: EMEA > Europe > United Kingdom.
+            function childrenOf(code) {
+                return regions.filter(function (r) { return r.parent === code; });
+            }
+            function ancestorsOf(r) {
+                var out = [];
+                for (var p = r.parent && findRegion(r.parent); p; p = p.parent && findRegion(p.parent)) out.unshift(p);
+                return out;
+            }
+            function serverCount(r) {
+                return childrenOf(r.code).reduce(function (n, c) { return n + serverCount(c); }, r.servers.length);
+            }
+            // The region's own servers, then each region inside it, in order: [{ region, servers }].
+            function serverGroups(r) {
+                var out = r.servers.length ? [{ region: r, servers: r.servers }] : [];
+                childrenOf(r.code).forEach(function (c) { out = out.concat(serverGroups(c)); });
+                return out;
             }
 
             var region = detectRegion();
@@ -807,10 +909,21 @@
             var pageFlag = document.getElementById('page-flag');
             if (region) {
                 heading.textContent = region.name;
-                eyebrow.textContent = brand.name + ' region';
-                sub.textContent = region.flag
-                    ? 'Servers hosted by ' + brand.name + ' in ' + region.name + '.'
-                    : brand.name + '’s ' + region.name + ' region.';
+                var path = ancestorsOf(region);
+                eyebrow.textContent = brand.name + (path.length ? ' · ' : ' region');
+                path.forEach(function (p, i) {
+                    if (i) eyebrow.appendChild(document.createTextNode(' › '));
+                    var a = el('a', null, p.name);
+                    a.href = regionUrl(p);
+                    a.target = '_top';
+                    a.rel = 'noopener';
+                    eyebrow.appendChild(a);
+                });
+                sub.textContent = childrenOf(region.code).length
+                    ? 'Servers hosted by ' + brand.name + ' across ' + (region.longName || region.name) + '.'
+                    : region.flag
+                        ? 'Servers hosted by ' + brand.name + ' in ' + region.name + '.'
+                        : brand.name + '’s ' + region.name + ' region.';
                 pageFlag.appendChild(flagEl(region));
                 pageFlag.hidden = false;
                 document.getElementById('regions-label').textContent = 'All regions';
@@ -830,26 +943,36 @@
                 var card = document.getElementById('servers-card');
                 var list = document.getElementById('server-list');
                 card.hidden = false;
-                if (region.servers.length) {
-                    region.servers.forEach(function (server) {
-                        var li = el('li', 'server-row');
-                        var icon = el('span', 'info-icon');
-                        icon.appendChild(svg(ICONS.server));
-                        var text = el('span', 'server-text');
-                        text.appendChild(el('span', 'server-name', server.name));
-                        text.appendChild(el('span', 'server-host', hostOf(region, server)));
-                        li.appendChild(icon);
-                        li.appendChild(text);
-                        var badge = el('span', 'badge');
-                        if (server.monitor) {
-                            badge.hidden = true; // shown once the live status arrives
-                            monitored.push({ server: server, badge: badge });
-                        } else {
-                            badge.className = 'badge badge-none';
-                            badge.textContent = 'Not monitored';
+                var groups = serverGroups(region);
+                if (groups.length) {
+                    var labelled = groups.length > 1 || groups[0].region !== region;
+                    groups.forEach(function (group) {
+                        if (labelled) {
+                            var head = el('li', 'server-group');
+                            head.appendChild(flagEl(group.region));
+                            head.appendChild(document.createTextNode(group.region.name));
+                            list.appendChild(head);
                         }
-                        li.appendChild(badge);
-                        list.appendChild(li);
+                        group.servers.forEach(function (server) {
+                            var li = el('li', 'server-row');
+                            var icon = el('span', 'info-icon');
+                            icon.appendChild(svg(ICONS.server));
+                            var text = el('span', 'server-text');
+                            text.appendChild(el('span', 'server-name', server.name));
+                            text.appendChild(el('span', 'server-host', hostOf(group.region, server)));
+                            li.appendChild(icon);
+                            li.appendChild(text);
+                            var badge = el('span', 'badge');
+                            if (server.monitor) {
+                                badge.hidden = true; // shown once the live status arrives
+                                monitored.push({ server: server, badge: badge });
+                            } else {
+                                badge.className = 'badge badge-none';
+                                badge.textContent = 'Not monitored';
+                            }
+                            li.appendChild(badge);
+                            list.appendChild(li);
+                        });
                     });
                     if (monitored.length) document.getElementById('status-note').hidden = false;
                 } else {
@@ -868,12 +991,14 @@
 
             // ── Region switcher ──
             var grid = document.getElementById('region-grid');
-            regions.forEach(function (r) {
+            grid.classList.add('rg-top');
+            function regionItem(r) {
                 var li = document.createElement('li');
                 var a = el('a', 'region-link');
                 a.href = regionUrl(r);
                 a.target = '_top';
                 a.rel = 'noopener';
+                if (r.longName) a.title = r.longName;
                 if (region && r.code === region.code) a.setAttribute('aria-current', 'page');
                 a.appendChild(flagEl(r));
                 var text = el('span', 'rl-text');
@@ -882,13 +1007,22 @@
                 if (region && r.code === region.code) {
                     meta.appendChild(el('strong', null, 'You are here'));
                 } else {
-                    meta.textContent = r.servers.length ? plural(r.servers.length) : 'No servers yet';
+                    var n = serverCount(r);
+                    meta.textContent = n ? plural(n) : 'No servers yet';
                 }
                 text.appendChild(meta);
                 a.appendChild(text);
                 li.appendChild(a);
-                grid.appendChild(li);
-            });
+                var kids = childrenOf(r.code);
+                if (kids.length) {
+                    li.className = 'rg-parent';
+                    var sub = el('ul', 'region-grid rg-sub');
+                    kids.forEach(function (k) { sub.appendChild(regionItem(k)); });
+                    li.appendChild(sub);
+                }
+                return li;
+            }
+            regions.filter(function (r) { return !r.parent; }).forEach(function (r) { grid.appendChild(regionItem(r)); });
 
             // ── Live status (Stux.Group status page, GitHup summary.json) ──
             var PILL = { up: 'Online', degraded: 'Degraded', down: 'Offline' };

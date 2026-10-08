@@ -2,6 +2,20 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.2.0
+
+### Added
+
+- Regions are grouped into **EMEA**, **AMER** and **APAC**: Europe sits inside EMEA, with the United Kingdom and Spain inside Europe; the United States and Canada are in AMER; Australia, Japan, Singapore and India are in APAC. Each region in `assets/regions.js` names the region it belongs to (`parent`), and EMEA, AMER and APAC have a globe icon and a full name (`longName`)
+- The region list is a tree: each group spans the row with its regions indented beneath it, and every count adds up the servers of the regions inside it (EMEA and Europe show 4 servers, AMER 2)
+- A group's page (EMEA, AMER, APAC, Europe) lists every server inside it, under a heading for each region, and says it covers e.g. "Europe, the Middle East and Africa"
+- A region's page shows where it sits, with links: "· EMEA › Europe" above the United Kingdom
+- The README's region table has a "Part of" column, and a group's row gives its server total
+
+### Fixed
+
+- Europe said "No servers yet" although the United Kingdom's and Spain's servers are European; it now counts and lists them
+
 ## v2.1.0
 
 ### Changed

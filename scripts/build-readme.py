@@ -23,15 +23,30 @@ def load():
 
 def table(data) -> str:
     brand = data["brand"]
-    rows = ["| Region | Code | Website | Servers |", "|---|---|---|---|"]
-    for r in data["regions"]:
+    regions = data["regions"]
+    by_code = {r["code"]: r for r in regions}
+    server_domain = brand.get("serverDomain") or brand["domain"]
+
+    def children(code):
+        return [r for r in regions if r.get("parent") == code]
+
+    def count(r):
+        return len(r["servers"]) + sum(count(c) for c in children(r["code"]))
+
+    rows = ["| Region | Code | Part of | Website | Servers |", "|---|---|---|---|---|"]
+    for r in regions:
         site = f"https://{r['code']}.{brand['domain']}"
-        servers = "<br>".join(
-            f"`{s['name']}.servers.{r['code']}.{brand['domain']}`" + ("" if s["monitor"] else " (not monitored)")
-            for s in r["servers"]
-        ) or "None yet"
-        rows.append(f"| {r['name']} | `{r['code']}` | [{site}]({site}) | {servers} |")
-    return "\n".join(rows)
+        parent = by_code[r["parent"]]["name"] if r.get("parent") else "—"
+        own = [f"`{s['name']}.servers.{r['code']}.{server_domain}`" + ("" if s["monitor"] else " (not monitored)")
+               for s in r["servers"]]
+        kids = children(r["code"])
+        if kids:
+            n = count(r)
+            names = ", ".join(c["name"] for c in kids)
+            own.append(f"{n} across {names}" if n else f"None yet (covers {names})")
+        name = f"**{r['name']}**" if not r.get("parent") else r["name"]
+        rows.append(f"| {name} | `{r['code']}` | {parent} | [{site}]({site}) | {'<br>'.join(own) or 'None yet'} |")
+    return chr(10).join(rows)
 
 
 def main() -> None:
