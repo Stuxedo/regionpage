@@ -191,7 +191,7 @@
             width: 1.333em;
         }
 
-        /* ── Flags (flag-icons) and the Eco leaf, which has no flag ── */
+        /* ── Flags (flag-icons), and the icon drawn for a region with no flag ── */
         .fi {
             border-radius: 3px;
             box-shadow: 0 0 0 1px var(--border);
@@ -660,7 +660,7 @@
             <div class="region-head">
                 <span class="page-flag" id="page-flag" hidden></span>
                 <p class="eyebrow" id="page-eyebrow">Stuxedo</p>
-                <h1 id="page-heading">Stuxedo regions</h1>
+                <h1 id="page-heading">Server Regions</h1>
                 <p class="sub" id="page-sub">Pick a region to visit its website.</p>
             </div>
 
@@ -816,13 +816,13 @@
                 document.getElementById('regions-label').textContent = 'All regions';
                 document.title = region.name + ' — ' + brand.name;
             } else {
-                heading.textContent = brand.name + ' regions';
+                heading.textContent = 'Server Regions';
                 eyebrow.textContent = brand.name;
                 sub.textContent = 'Pick a region to visit its website.';
-                document.title = brand.name + ' regions';
+                document.title = 'Server Regions — ' + brand.name;
             }
             var description = document.querySelector('meta[name="description"]');
-            if (description) description.setAttribute('content', region ? 'The ' + region.name + ' region of ' + brand.name : brand.name + ' regions');
+            if (description) description.setAttribute('content', region ? 'The ' + region.name + ' region of ' + brand.name : brand.name + ' server regions');
 
             // ── Servers ──
             var monitored = [];

@@ -32,7 +32,6 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 | Japan | `jp` | [https://jp.stuxedo.net](https://jp.stuxedo.net) | None yet |
 | Singapore | `sg` | [https://sg.stuxedo.net](https://sg.stuxedo.net) | None yet |
 | India | `in` | [https://in.stuxedo.net](https://in.stuxedo.net) | None yet |
-| Eco | `eco` | [https://eco.stuxedo.net](https://eco.stuxedo.net) | None yet |
 <!-- regions:end -->
 
 The regions and servers live in one file, [`assets/regions.js`](assets/regions.js). To add a region or a server, edit it there, then run `python scripts/build-readme.py` to refresh this table.

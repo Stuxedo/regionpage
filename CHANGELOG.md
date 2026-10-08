@@ -2,6 +2,16 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.1.0
+
+### Changed
+
+- The overview's heading is "Server Regions" (it was the brand's name followed by "regions"); the brand name stays in the line above it, and the browser tab reads "Server Regions — " plus the brand
+
+### Removed
+
+- The Eco region, which isn't a region any more. The page now lists nine regions; an old `?region=eco` link shows the overview instead
+
 ## v2.0.3
 
 ### Fixed

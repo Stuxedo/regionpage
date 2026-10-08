@@ -61,7 +61,6 @@ window.REGION_DATA = {
     { "code": "au", "name": "Australia", "flag": "au", "servers": [] },
     { "code": "jp", "name": "Japan", "flag": "jp", "servers": [] },
     { "code": "sg", "name": "Singapore", "flag": "sg", "servers": [] },
-    { "code": "in", "name": "India", "flag": "in", "servers": [] },
-    { "code": "eco", "name": "Eco", "flag": null, "icon": "leaf", "servers": [] }
+    { "code": "in", "name": "India", "flag": "in", "servers": [] }
   ]
 };
