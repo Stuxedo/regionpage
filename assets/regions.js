@@ -15,7 +15,7 @@
  * region.icon       used when flag is null: the icon drawn in the flag's place (globe-emea,
  *                   globe-amer and globe-apac face each area; also globe, leaf)
  * server.name       the server's name; its hostname is <name>.servers.<code>.<domain>
- * server.monitor    the slug on the Stux.Group status page, or null when it isn't monitored
+ * server.monitor    the slug on the Stuxedo status page, or null when it isn't monitored
  *
  * Regions are listed in the order they appear on the page, each after the region it belongs to.
  */
@@ -23,8 +23,8 @@ window.REGION_DATA = {
   "brand": {
     "name": "Stuxedo",
     "domain": "stuxedo.net",
-    "statusUrl": "https://status.stux.group",
-    "statusSummary": "https://raw.githubusercontent.com/StuxGroup/Status/main/data/summary.json"
+    "statusUrl": "https://status.stuxedo.net",
+    "statusSummary": "https://raw.githubusercontent.com/Stuxedo/Status/main/data/summary.json"
   },
   "regions": [
     { "code": "emea", "name": "EMEA", "longName": "Europe, the Middle East and Africa", "flag": null, "icon": "globe-emea", "servers": [] },

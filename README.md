@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://global.media.stuxedo.com/logo.png" height="100" alt="Stuxedo Logo">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stuxedo.com/logo-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stuxedo.com/logo-dark.png"><img src="https://global.media.stuxedo.com/logo-dark.png" height="100" alt="Stuxedo Logo"></picture>
 </p>
 
 # Region Page
@@ -13,7 +13,7 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 ## Features
 
 - 🌍 One page for every region: the region's name and flag, its servers, and a switcher linking to all regions
-- 🟢 Live server status (Online / Degraded / Offline) from [status.stux.group](https://status.stux.group)
+- 🟢 Live server status (Online / Degraded / Offline) from [status.stuxedo.net](https://status.stuxedo.net)
 - 🗺️ A "Stuxedo regions" index when no region is known
 - 🌗 Light and dark themes, responsive down to phone widths
 - 🚀 Deployed at [regionpage.stuxedo.net](https://regionpage.stuxedo.net)
@@ -59,7 +59,7 @@ The page also mirrors its title to the framing page with a `page-title` `postMes
 
 ## Live status
 
-Server badges are read from the Stux.Group status page's public `summary.json` (with a cache-busting query string). Servers with a `monitor` slug in `assets/regions.js` get an Online / Degraded / Offline badge; servers without one show "Not monitored". If the status can't be fetched, no badge is shown.
+Server badges are read from the Stuxedo status page's public `summary.json` (with a cache-busting query string). Servers with a `monitor` slug in `assets/regions.js` get an Online / Degraded / Offline badge; servers without one show "Not monitored". If the status can't be fetched, no badge is shown.
 
 ## Getting Started
 
@@ -100,8 +100,8 @@ Copyright (c) 2026 Stux.Group. This project is open source and available for use
 
 ---
 
-*Built & Maintained by <img src="https://global.media.stuxedo.com/icon.png" height="14" alt="Stuxedo" valign="middle"> [Stuxedo](https://github.com/Stuxedo).  
-Stuxedo is a part of the <img src="https://global.media.stux.group/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
+*Built & Maintained by <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stuxedo.com/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stuxedo.com/icon-dark.png"><img src="https://global.media.stuxedo.com/icon-dark.png" height="14" alt="Stuxedo" valign="middle"></picture> [Stuxedo](https://github.com/Stuxedo).  
+Stuxedo is a part of the <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stux.group/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stux.group/icon-dark.png"><img src="https://global.media.stux.group/icon-dark.png" height="14" alt="Stux.Group" valign="middle"></picture> Stux.Group brand of businesses.*
 
 ## Local preview
 

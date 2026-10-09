@@ -2,6 +2,13 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.4.0
+
+### Changed
+
+- Live server status comes from Stuxedo's own status page, [status.stuxedo.net](https://status.stuxedo.net) (`Stuxedo/Status`), instead of Stux.Group's: the servers moved there on 9 October 2026 with their history and slugs, so every badge works as before. The "Live status from" link points there too
+- The favicon follows the browser's light or dark theme (`icon-dark.png` on light, `icon-light.png` on dark), and the logos and icons in the Markdown docs follow GitHub's theme, using the brand's `-light`/`-dark` files
+
 ## v2.3.2
 
 ### Fixed

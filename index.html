@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A Stuxedo Region">
     <title>A Stuxedo Region</title>
-    <link rel="icon" type="image/png" href="https://global.media.stuxedo.com/icon.png">
+    <link rel="icon" type="image/png" href="https://global.media.stuxedo.com/icon-dark.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="https://global.media.stuxedo.com/icon-light.png" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.3.2/css/flag-icons.min.css">
     <style>
@@ -760,7 +761,7 @@
                 <p class="card-label" id="servers-label">Servers</p>
                 <ul id="server-list"></ul>
                 <p class="status-note" id="status-note" hidden>Live status from
-                    <a href="https://status.stux.group" target="_blank" rel="noopener">status.stux.group</a></p>
+                    <a href="https://status.stuxedo.net" target="_blank" rel="noopener">status.stuxedo.net</a></p>
             </section>
 
             <nav class="card" id="regions-card" aria-labelledby="regions-label">
@@ -1034,7 +1035,7 @@
             }
             regions.filter(function (r) { return !r.parent; }).forEach(function (r) { grid.appendChild(regionItem(r)); });
 
-            // ── Live status (Stux.Group status page, GitHup summary.json) ──
+            // ── Live status (Stuxedo status page, GitHup summary.json) ──
             var PILL = { up: 'Online', degraded: 'Degraded', down: 'Offline' };
             if (monitored.length) {
                 fetch(brand.statusSummary + '?t=' + Date.now(), { cache: 'no-store' })
