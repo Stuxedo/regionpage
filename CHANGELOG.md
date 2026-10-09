@@ -2,6 +2,12 @@
 
 All notable changes to regionpage are documented here.
 
+## v2.3.1
+
+### Changed
+
+- The footer no longer says "Stuxedo is operated by Stux Group Ltd."; that belongs on the Imprint, which still says it. The copyright line names Stuxedo instead of Stux.Group ("© 2026 Stuxedo. All rights reserved.")
+
 ## v2.3.0
 
 ### Changed
