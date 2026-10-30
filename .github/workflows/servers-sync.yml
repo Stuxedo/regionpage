@@ -1,0 +1,52 @@
+# Adds new Stuxedo servers to the page on its own, daily: reads the *.servers.<cc>.stuxedo.net records from
+# Cloudflare (scripts/sync-servers.py), and when there's a new one, releases and deploys it.
+# Needs the CLOUDFLARE_DNS_TOKEN secret: a Cloudflare API token with Zone > DNS > Read on stuxedo.net only.
+name: Servers sync
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit and tag the release
+  actions: write    # start Deploy Pages (a push made with this workflow's token doesn't)
+
+concurrency:
+  group: servers-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: sync
+        name: Add new servers from DNS
+        env:
+          CLOUDFLARE_DNS_TOKEN: ${{ secrets.CLOUDFLARE_DNS_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_DNS_TOKEN" ]; then
+            echo "::notice::The CLOUDFLARE_DNS_TOKEN secret isn't set, so there's nothing to check."
+            exit 0
+          fi
+          python3 scripts/sync-servers.py
+
+      - name: Release and deploy
+        if: always() && steps.sync.outputs.version != ''
+        env:
+          VERSION: ${{ steps.sync.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bash tests/version.sh
+          bash tests/site.sh
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Release v$VERSION"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin HEAD:main "v$VERSION"
+          gh workflow run pages.yml --ref main

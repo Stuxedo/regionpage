@@ -40,6 +40,7 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 
 The regions and servers live in one file, [`assets/regions.js`](assets/regions.js). To add a region or a server, edit it there, then run `python scripts/build-readme.py` to refresh this table.
 
+New servers are also added on their own: the daily **Servers sync** workflow (`.github/workflows/servers-sync.yml`, `scripts/sync-servers.py`) reads the `*.servers.<cc>.stuxedo.net` records from Cloudflare, adds any server that isn't listed to its region, and releases and deploys it. A server in a country that isn't a region yet fails the run, as a region needs a name, flag and parent; a listed server with no record is only warned about. It needs the `CLOUDFLARE_DNS_TOKEN` secret, a Cloudflare API token with Zone → DNS → Read on stuxedo.net only; without it, the workflow does nothing.
 
 Flags come from the [flag-icons](https://flagicons.lipis.dev) stylesheet on cdnjs (no emoji flags: they don't render on Windows).
 

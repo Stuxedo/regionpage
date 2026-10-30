@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.10.30-1
+
+### Added
+
+- **New servers are added on their own.** The daily **Servers sync** workflow reads Stuxedo's `*.servers.<cc>.stuxedo.net` DNS records from Cloudflare and adds any server that isn't listed to its region, monitored by its own slug, then releases and deploys the page. New countries and retired servers are still left to a person: the first fails the run, the second is a warning. It needs the `CLOUDFLARE_DNS_TOKEN` secret (Zone → DNS → Read on stuxedo.net).
+
 ## v26.10.30
 
 ### Added
