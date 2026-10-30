@@ -4,6 +4,27 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.10.30
+
+### Added
+
+- **Finland** (`fi`, in Europe), with its server **mixr2** (`mixr2.servers.fi.stuxedo.net`, status from the `mixr2` monitor). Its region website, `fi.stuxedo.net`, is served by mixr2 itself.
+
+### Changed
+
+- **Every region's website is served by that region's own server**, behind Cloudflare's proxy, with a Cloudflare origin certificate (valid to 2041; each server's daily certificate check watches it). Before, they were all on shared web hosting.
+  - Spain: mixr1
+  - Finland: mixr2
+  - United Kingdom: tiny1
+  - United States: down1
+  - Canada: kitt1
+
+  The `stuxedo.net` sites serve this repo's `wrapper/index.html` unchanged.
+
+### Removed
+
+- **The note about the Eco region**: Eco is retired.
+
 ## v26.10.26
 
 ### Security
