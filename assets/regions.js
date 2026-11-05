@@ -58,6 +58,15 @@ window.REGION_DATA = {
         { "name": "mixr2", "monitor": "mixr2" }
       ]
     },
+    {
+      "code": "fr",
+      "name": "France",
+      "parent": "eu",
+      "flag": "fr",
+      "servers": [
+        { "name": "soci1", "monitor": "soci1" }
+      ]
+    },
     { "code": "amer", "name": "AMER", "longName": "the Americas", "flag": null, "icon": "globe-amer", "servers": [] },
     {
       "code": "us",

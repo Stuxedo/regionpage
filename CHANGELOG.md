@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.05
+
+### Added
+
+- **France** (`fr`, in Europe), with its server **soci1** (`soci1.servers.fr.stuxedo.net`, status from the `soci1` monitor). Its region website, `fr.stuxedo.net` / `fr.stux.cloud`, is served by soci1 itself.
+
 ## v26.10.30-1
 
 ### Added
