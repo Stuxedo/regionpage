@@ -1,0 +1,111 @@
+# Deploys wrapper/index.html to every region's website (uk.stuxedo.net, es.stuxedo.net and so on), each served by
+# that region's own server, once CI has passed on a push to main. Also runs by hand from the Actions tab.
+#
+# Only the commit CI tested is deployed, and only while it is still the tip of main: if main has moved on, this
+# run stops and the newer commit's run deploys instead.
+#
+# Each server has its own deploy key, in the secret DEPLOY_KEY_<SERVER> (for example DEPLOY_KEY_MIXR2). On the
+# server it belongs to the "regions" user and is restricted with rrsync to /var/www/region/ (write-only),
+# so the rsync target is ./ and the key can do nothing else. The host keys below are the servers' ed25519 keys.
+#
+# Adding a region server: give it the regions user and its own key, add the DEPLOY_KEY_<SERVER> secret, and add it
+# to the matrix.
+name: Deploy wrapper
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-wrapper
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to ${{ matrix.site }} (${{ matrix.server }})
+    if: >-
+      github.event_name == 'workflow_dispatch' || (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event == 'push'
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - server: tiny1
+            site: uk.stuxedo.net
+            host: tiny1.servers.uk.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcvZ6CJ4UQ5lbxKPb6Y9sgHPawT5WLNro9rcPVgTdyz"
+          - server: mixr1
+            site: es.stuxedo.net
+            host: mixr1.servers.es.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEL3OtovS61alsdls6bodqof7scHORPE2Z2feIpEeUgQ"
+          - server: mixr2
+            site: fi.stuxedo.net
+            host: mixr2.servers.fi.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ/IbdlnonmsjgUpTysNX3/dc+IlEJzTKRrXgih5xLTc"
+          - server: soci1
+            site: fr.stuxedo.net
+            host: soci1.servers.fr.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMruGmec/bPJn0rnPJMqbJFTt2IxuHMaIvFlt0c0W+Q5"
+          - server: down1
+            site: us.stuxedo.net
+            host: down1.servers.us.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBCWR+lEJaXxz8azw7QEimb74nboKk5lNL0Zt3Vuk5P4"
+          - server: kitt1
+            site: ca.stuxedo.net
+            host: kitt1.servers.ca.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICN41AjAVeGJfFyrr6TBXnForc3FGdH+15+PL19Ixe1j"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - id: tip
+        name: Check this is still the tip of main
+        run: |
+          git fetch -q --depth=1 origin main
+          if [ "$(git rev-parse FETCH_HEAD)" = "$(git rev-parse HEAD)" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::main has moved on since CI tested $(git rev-parse --short HEAD); the newer commit's run deploys instead."
+          fi
+
+      - name: Set up SSH
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          DEPLOY_KEY: ${{ secrets[format('DEPLOY_KEY_{0}', matrix.server)] }}
+        run: |
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "::error::The secret DEPLOY_KEY_${{ matrix.server }} isn't set."
+            exit 1
+          fi
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s %s\n' "${{ matrix.host }}" "${{ matrix.hostkey }}" > ~/.ssh/known_hosts
+
+      - name: Copy the wrapper to ${{ matrix.host }}
+        if: steps.tip.outputs.deploy == 'true'
+        run: |
+          rsync -rlt --checksum --chmod=D755,F644 --itemize-changes \
+            -e "ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o StrictHostKeyChecking=yes" \
+            wrapper/ "regions@${{ matrix.host }}:./"
+
+      - name: Check https://${{ matrix.site }}/ serves it
+        if: steps.tip.outputs.deploy == 'true'
+        run: |
+          body="$(curl -fsS --retry 3 --retry-delay 5 -H 'Cache-Control: no-cache' "https://${{ matrix.site }}/?deploy=${GITHUB_RUN_ID}")"
+          grep -q 'https://regionpage.stuxedo.net' <<< "$body" || { echo "::error::${{ matrix.site }} doesn't frame regionpage.stuxedo.net"; exit 1; }
+          want="$(grep -o 'https://status\.[a-z.]*' wrapper/index.html | sort -u | tr '\n' ' ')"
+          got="$(grep -o 'https://status\.[a-z.]*' <<< "$body" | sort -u | tr '\n' ' ')"
+          [ "$want" = "$got" ] || { echo "::error::${{ matrix.site }} serves an older wrapper (status links: $got, expected $want)"; exit 1; }
+          echo "${{ matrix.site }} serves this wrapper."

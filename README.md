@@ -57,7 +57,7 @@ The page also mirrors its title to the framing page with a `page-title` `postMes
 
 [`wrapper/index.html`](wrapper/index.html) is the small page each region's website serves. It frames `https://regionpage.stuxedo.net` full-screen and updates its own title from the framed page.
 
-**The same file is uploaded, unchanged, to every region's website** (uk.stuxedo.net, ca.stuxedo.net and so on). The template does the rest, because it reads the region from the host of the site framing it. The wrapper is a deployment artefact: it is not part of the Pages site or the sitemap.
+**The same file is deployed, unchanged, to every region's website** by the **Deploy wrapper** workflow (`.github/workflows/deploy-wrapper.yml`) once CI passes on `main` (uk.stuxedo.net, ca.stuxedo.net and so on). The template does the rest, because it reads the region from the host of the site framing it. The wrapper is a deployment artefact: it is not part of the Pages site or the sitemap.
 
 ## Live status
 

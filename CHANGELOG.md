@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.06-1
+
+### Added
+
+- **The wrapper deploys itself.** The new **Deploy wrapper** workflow copies `wrapper/index.html` to every region server (uk, es, fi, fr, us, ca) once CI passes on a push to `main`, then checks each region's website serves it. It deploys only the commit CI tested, and only while that's still the tip of `main`. Each server has its own deploy key, restricted on the server to writing into the Stuxedo wrapper's folder (`/var/www/region`), and its host key is pinned. Before, the wrapper was only copied by hand when a region was set up.
+
 ## v26.11.06
 
 ### Changed
