@@ -4,6 +4,13 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.07
+
+### Changed
+
+- **Servers sync no longer pushes to `main`.** When it finds a new server it releases and tags it on `test`, starts CI there (CI can now also be started by hand) and opens a `test` → `main` PR, or leaves a notice if one is already open. If it can't open the PR, it leaves a warning with the compare link. The page deploys when the PR is merged.
+- **All rights reserved.** The License section now reads "Copyright (c) 2026 Stux.Group. All rights reserved. This repository is not licensed for reuse or redistribution", and a `LICENSE` file says the same.
+
 ## v26.11.06-2
 
 ### Changed

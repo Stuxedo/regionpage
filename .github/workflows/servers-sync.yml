@@ -1,5 +1,8 @@
 # Adds new Stuxedo servers to the page on its own, daily: reads the *.servers.<cc>.stuxedo.net records from
-# Cloudflare (scripts/sync-servers.py), and when there's a new one, releases and deploys it.
+# Cloudflare (scripts/sync-servers.py), and when there's a new one, releases it on test, starts CI there and opens
+# a test -> main PR. It never pushes to main: the page deploys when Leo merges that PR.
+# Opening the PR needs "Allow GitHub Actions to create and approve pull requests" (Settings > Actions); without
+# it the run leaves a warning with the compare link instead.
 # Needs the CLOUDFLARE_DNS_TOKEN secret: a Cloudflare API token with Zone > DNS > Read on stuxedo.net only.
 name: Servers sync
 
@@ -9,8 +12,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # commit and tag the release
-  actions: write    # start Deploy Pages (a push made with this workflow's token doesn't)
+  contents: write        # commit and tag the release on test
+  actions: write         # start CI on test (a push made with this workflow's token doesn't)
+  pull-requests: write   # open the test -> main PR
 
 concurrency:
   group: servers-sync
@@ -22,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: test
           fetch-depth: 0
 
       - id: sync
@@ -35,7 +40,7 @@ jobs:
           fi
           python3 scripts/sync-servers.py
 
-      - name: Release and deploy
+      - name: Release on test and open the PR
         if: always() && steps.sync.outputs.version != ''
         env:
           VERSION: ${{ steps.sync.outputs.version }}
@@ -48,5 +53,10 @@ jobs:
           git add -A
           git commit -m "Release v$VERSION"
           git tag -a "v$VERSION" -m "Release v$VERSION"
-          git push origin HEAD:main "v$VERSION"
-          gh workflow run pages.yml --ref main
+          git push origin HEAD:test "v$VERSION"
+          gh workflow run ci.yml --ref test
+          if [ -n "$(gh pr list --base main --head test --state open --json number -q '.[0].number')" ]; then
+            echo "::notice::A test -> main PR is already open, so v$VERSION joins it, ready to merge."
+          elif ! gh pr create --base main --head test --title "Release v$VERSION" --body "New servers from DNS, released as v$VERSION by Servers sync. Merging deploys it."; then
+            echo "::warning::Couldn't open the test -> main PR. Open it here: https://github.com/${GITHUB_REPOSITORY}/compare/main...test"
+          fi
