@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, test]
   pull_request:
+  workflow_dispatch:   # Servers sync starts it on test (its own push doesn't)
 
 jobs:
   lint:

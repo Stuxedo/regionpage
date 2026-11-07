@@ -41,7 +41,7 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 
 The regions and servers live in one file, [`assets/regions.js`](assets/regions.js). To add a region or a server, edit it there, then run `python scripts/build-readme.py` to refresh this table.
 
-New servers are also added on their own: the daily **Servers sync** workflow (`.github/workflows/servers-sync.yml`, `scripts/sync-servers.py`) reads the `*.servers.<cc>.stuxedo.net` records from Cloudflare, adds any server that isn't listed to its region, and releases and deploys it. A server in a country that isn't a region yet fails the run, as a region needs a name, flag and parent; a listed server with no record is only warned about. It needs the `CLOUDFLARE_DNS_TOKEN` secret, a Cloudflare API token with Zone → DNS → Read on stuxedo.net only; without it, the workflow does nothing.
+New servers are also added on their own: the daily **Servers sync** workflow (`.github/workflows/servers-sync.yml`, `scripts/sync-servers.py`) reads the `*.servers.<cc>.stuxedo.net` records from Cloudflare, adds any server that isn't listed to its region, releases it on `test` and opens a `test` → `main` PR; it never pushes to `main`, so the page deploys when that PR is merged. Opening the PR needs "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings; without it the run leaves a warning with the compare link. A server in a country that isn't a region yet fails the run, as a region needs a name, flag and parent; a listed server with no record is only warned about. It needs the `CLOUDFLARE_DNS_TOKEN` secret, a Cloudflare API token with Zone → DNS → Read on stuxedo.net only; without it, the workflow does nothing.
 
 Flags come from the [flag-icons](https://flagicons.lipis.dev) stylesheet on cdnjs (no emoji flags: they don't render on Windows).
 
@@ -104,7 +104,7 @@ Releases are made and tagged on `test`, and go live when its pull request into `
 
 ## License
 
-Copyright (c) 2026 Stux.Group. This project is open source and available for use and modification.
+Copyright (c) 2026 Stux.Group. All rights reserved. This repository is not licensed for reuse or redistribution, see [LICENSE](LICENSE).
 
 ---
 
