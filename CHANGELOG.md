@@ -4,6 +4,24 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.13-1
+
+### Fixed
+
+- **Registered office country.** The Imprint page now gives the full registered office, ending in "United Kingdom": 124 City Road, London, EC1V 2NX, England, United Kingdom.
+
+## v26.11.13
+
+### Changed
+
+- **New registered office.** The Imprint page now shows Stux Group Ltd's new registered office, 124 City Road, London, EC1V 2NX, England (it was 82a James Carter Road, Mildenhall). The company number and "Registered in England and Wales" are unchanged.
+
+## v26.11.12
+
+### Fixed
+
+- **The commit script's push hint** now names the current branch (`test`) and the release tag, and reminds you to open the pull request into `main`. It used to say to push to `main`.
+
 ## v26.11.07
 
 ### Changed

@@ -36,4 +36,4 @@ if errorlevel 1 (
     echo Tag v%VERSION% already exists - skipping.
 )
 
-echo Push with: git push origin main --tags
+for /f %%b in ('git branch --show-current') do echo Push with: git push origin %%b v%VERSION%, then open a pull request from test into main.
