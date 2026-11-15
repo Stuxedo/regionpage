@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.15
+
+### Added
+
+- **`--lan` for the dev server.** `./dev-server.sh --lan` (or `dev-server.bat --lan`) makes the local preview listen on every interface, so you can open the site from a phone or another device on the same network. It prints the addresses to open, usually the `192.168.x.x` one; allow PHP through the firewall if asked. Without it, the server stays on `127.0.0.1` only, as before.
+
 ## v26.11.13-1
 
 ### Fixed
