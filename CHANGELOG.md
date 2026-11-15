@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.15-2
+
+### Changed
+
+- **Servers sync opens its pull request into `staging`.** When it releases new servers on `test`, it now opens (or joins) a `test` → `staging` pull request instead of going straight to `main`, matching the `test` → `staging` → `main` flow. `staging` and `main` are also protected by GitHub rulesets now: no deleting or force-pushing, both only change through pull requests, and CI must pass.
+
 ## v26.11.15-1
 
 ### Changed
