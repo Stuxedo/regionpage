@@ -5,7 +5,7 @@ Thank you for your interest in contributing! This repository is a small, static 
 ## Getting Started
 
 1. **Fork the repository** and clone your fork locally.
-2. **Run it locally** with `./dev-server.sh` (or `dev-server.bat` on Windows) and open the printed URL, for example `http://127.0.0.1:8000/?region=uk`.
+2. **Run it locally** with `./dev-server.sh` (or `dev-server.bat` on Windows) and open the printed URL, for example `http://127.0.0.1:8000/?region=uk`. Add `--lan` to open it from a phone or another device on your network: it listens on every interface instead of `127.0.0.1` only and prints the addresses to open (usually the `192.168.x.x` one).
 3. **Make your changes** to `index.html` or, to add a region or server, `assets/regions.js` — no build step required.
 4. **Submit a pull request** with a clear description of what you've changed and why.
 
@@ -38,11 +38,12 @@ If you have any questions, feel free to reach out at [hello@stuxedo.com](mailto:
 
 *Stuxedo is part of the [Stux.Group](https://github.com/StuxGroup) Brand of Companies.*
 
-## Branches
+## Branches and going live
 
-- Work on `test`, or on a feature branch off it. Never push to `main`
-- Changes reach `main` only through a pull request from `test` into `main`, which needs CI to pass and is reviewed and merged by Leo
-- Merging into `main` deploys the site to GitHub Pages and the wrapper to the region servers; release commits and tags are made on `test` (`git push origin test --tags`) and go live when the pull request is merged
+- **`main` is what's live.** Nothing is pushed to it directly: it only changes when a pull request from `staging` is merged. Merging into it deploys the site to GitHub Pages and the wrapper to the region servers.
+- **`staging` is the last check before live.** It only changes when a pull request from `test` is merged. It needs CI to pass. Nothing deploys from it.
+- **Work happens on `test`**, or on a feature branch off `test` that's merged back into it. Releases are made on `test` too; `commit.sh` / `commit.bat` refuse to run on `staging` or `main`.
+- **Going live:** push `test` with its tag, open a pull request into staging (`gh pr create --base staging --head test`), check staging once it's merged, then open one from staging into main (`gh pr create --base main --head staging`). Leo reviews and merges both.
 
 ## Versioning
 

@@ -4,6 +4,24 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.15-2
+
+### Changed
+
+- **Servers sync opens its pull request into `staging`.** When it releases new servers on `test`, it now opens (or joins) a `test` → `staging` pull request instead of going straight to `main`, matching the `test` → `staging` → `main` flow. `staging` and `main` are also protected by GitHub rulesets now: no deleting or force-pushing, both only change through pull requests, and CI must pass.
+
+## v26.11.15-1
+
+### Changed
+
+- **Going live now takes two steps: `test` → `staging` → `main`.** `staging` is the last check before live and only changes through a pull request from `test`; `main` (live) only changes through a pull request from `staging`. `commit.sh` and `commit.bat` refuse to run on `staging` as well as `main`, and print the push command and both pull request commands after tagging. CONTRIBUTING's "Branches and going live" and the README's Versioning section describe the flow; CI also runs on pushes to `staging`.
+
+## v26.11.15
+
+### Added
+
+- **`--lan` for the dev server.** `./dev-server.sh --lan` (or `dev-server.bat --lan`) makes the local preview listen on every interface, so you can open the site from a phone or another device on the same network. It prints the addresses to open, usually the `192.168.x.x` one; allow PHP through the firewall if asked. Without it, the server stays on `127.0.0.1` only, as before.
+
 ## v26.11.13-1
 
 ### Fixed
