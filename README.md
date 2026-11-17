@@ -25,7 +25,7 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 |---|---|---|---|---|
 | **EMEA** | `emea` | — | [https://emea.stuxedo.net](https://emea.stuxedo.net) | 7 across Europe |
 | Europe | `eu` | EMEA | [https://eu.stuxedo.net](https://eu.stuxedo.net) | 7 across United Kingdom, Spain, Finland, France, Germany |
-| United Kingdom | `uk` | Europe | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` (not monitored) |
+| United Kingdom | `uk` | Europe | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` |
 | Spain | `es` | Europe | [https://es.stuxedo.net](https://es.stuxedo.net) | `mixr1.servers.es.stuxedo.net` |
 | Finland | `fi` | Europe | [https://fi.stuxedo.net](https://fi.stuxedo.net) | `mixr2.servers.fi.stuxedo.net` |
 | France | `fr` | Europe | [https://fr.stuxedo.net](https://fr.stuxedo.net) | `soci1.servers.fr.stuxedo.net` |
@@ -105,7 +105,7 @@ Releases are made and tagged on `test`, then go live through two pull requests: 
 
 ## License
 
-Copyright (c) 2026 Stux.Group. All rights reserved. This repository is not licensed for reuse or redistribution, see [LICENSE](LICENSE).
+Copyright (c) 2026 Stuxedo. All rights reserved. This repository is not licensed for reuse or redistribution, see [LICENSE](LICENSE).
 
 ---
 

@@ -5,7 +5,7 @@ Run from anywhere: python scripts/build-readme.py
 assets/regions.js is the one place regions and servers are listed; this copies it into the
 README between the <!-- regions:start --> and <!-- regions:end --> markers.
 
-Copyright (c) Stux.Group. All Rights Reserved.
+Copyright (c) Stuxedo. All Rights Reserved.
 """
 import json
 import re
