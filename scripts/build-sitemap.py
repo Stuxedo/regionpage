@@ -6,7 +6,7 @@ The page list is PAGES below; each page's <lastmod> is the date of the last git 
 touched its source file (left out if the file has no history yet). URLs always use BASE_URL,
 the site's production address.
 
-Copyright (c) Stux.Group. All Rights Reserved.
+Copyright (c) Stuxedo. All Rights Reserved.
 """
 import html
 import re

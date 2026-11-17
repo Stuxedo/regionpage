@@ -37,7 +37,7 @@ window.REGION_DATA = {
       "servers": [
         { "name": "robo1", "monitor": "robo1" },
         { "name": "tiny1", "monitor": "tiny1" },
-        { "name": "web1", "monitor": null }
+        { "name": "web1", "monitor": "web1" }
       ]
     },
     {
