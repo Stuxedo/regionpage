@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.17-2
+
+### Changed
+
+- **Copyright Stuxedo.** The copyright notices now name Stuxedo instead of Stux.Group ("Copyright (c) 2026 Stuxedo. All rights reserved."), in `LICENSE`, `README.md`, `scripts/build-readme.py`, `scripts/build-sitemap.py`. Stuxedo is still part of the Stux.Group brand, and the Imprint still names the company that operates it.
+
 ## v26.11.17-1
 
 ### Fixed

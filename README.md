@@ -105,7 +105,7 @@ Releases are made and tagged on `test`, then go live through two pull requests: 
 
 ## License
 
-Copyright (c) 2026 Stux.Group. All rights reserved. This repository is not licensed for reuse or redistribution, see [LICENSE](LICENSE).
+Copyright (c) 2026 Stuxedo. All rights reserved. This repository is not licensed for reuse or redistribution, see [LICENSE](LICENSE).
 
 ---
 
