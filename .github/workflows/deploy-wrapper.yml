@@ -56,6 +56,10 @@ jobs:
             site: fr.stuxedo.net
             host: soci1.servers.fr.stuxedo.net
             hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMruGmec/bPJn0rnPJMqbJFTt2IxuHMaIvFlt0c0W+Q5"
+          - server: runn1
+            site: de.stuxedo.net
+            host: runn1.servers.de.stuxedo.net
+            hostkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6fJLSmUx9CRhzfkDWVKyrZnELi1Pc7ijKGnrQZO9b3"
           - server: down1
             site: us.stuxedo.net
             host: down1.servers.us.stuxedo.net

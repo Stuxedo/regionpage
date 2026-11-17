@@ -67,6 +67,15 @@ window.REGION_DATA = {
         { "name": "soci1", "monitor": "soci1" }
       ]
     },
+    {
+      "code": "de",
+      "name": "Germany",
+      "parent": "eu",
+      "flag": "de",
+      "servers": [
+        { "name": "runn1", "monitor": "runn1" }
+      ]
+    },
     { "code": "amer", "name": "AMER", "longName": "the Americas", "flag": null, "icon": "globe-amer", "servers": [] },
     {
       "code": "us",
