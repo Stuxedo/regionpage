@@ -23,12 +23,13 @@ Each Stuxedo region (for example [uk.stuxedo.net](https://uk.stuxedo.net)) has i
 <!-- regions:start -->
 | Region | Code | Part of | Website | Servers |
 |---|---|---|---|---|
-| **EMEA** | `emea` | — | [https://emea.stuxedo.net](https://emea.stuxedo.net) | 6 across Europe |
-| Europe | `eu` | EMEA | [https://eu.stuxedo.net](https://eu.stuxedo.net) | 6 across United Kingdom, Spain, Finland, France |
+| **EMEA** | `emea` | — | [https://emea.stuxedo.net](https://emea.stuxedo.net) | 7 across Europe |
+| Europe | `eu` | EMEA | [https://eu.stuxedo.net](https://eu.stuxedo.net) | 7 across United Kingdom, Spain, Finland, France, Germany |
 | United Kingdom | `uk` | Europe | [https://uk.stuxedo.net](https://uk.stuxedo.net) | `robo1.servers.uk.stuxedo.net`<br>`tiny1.servers.uk.stuxedo.net`<br>`web1.servers.uk.stuxedo.net` (not monitored) |
 | Spain | `es` | Europe | [https://es.stuxedo.net](https://es.stuxedo.net) | `mixr1.servers.es.stuxedo.net` |
 | Finland | `fi` | Europe | [https://fi.stuxedo.net](https://fi.stuxedo.net) | `mixr2.servers.fi.stuxedo.net` |
 | France | `fr` | Europe | [https://fr.stuxedo.net](https://fr.stuxedo.net) | `soci1.servers.fr.stuxedo.net` |
+| Germany | `de` | Europe | [https://de.stuxedo.net](https://de.stuxedo.net) | `runn1.servers.de.stuxedo.net` |
 | **AMER** | `amer` | — | [https://amer.stuxedo.net](https://amer.stuxedo.net) | 2 across United States, Canada |
 | United States | `us` | AMER | [https://us.stuxedo.net](https://us.stuxedo.net) | `down1.servers.us.stuxedo.net` |
 | Canada | `ca` | AMER | [https://ca.stuxedo.net](https://ca.stuxedo.net) | `kitt1.servers.ca.stuxedo.net` |
