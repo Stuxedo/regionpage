@@ -4,6 +4,12 @@ All notable changes to regionpage are documented here.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.17-1
+
+### Fixed
+
+- **WEB1 shows its live status.** WEB1 (UK), the Stuxedo web hosting server, was listed as "Not monitored" because it had no monitor when it was added. It now reads the `web1` monitor that Stuxedo Server Status has had since v26.11.17-1.
+
 ## v26.11.17
 
 ### Added
